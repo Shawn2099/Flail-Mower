@@ -1,0 +1,16 @@
+{
+  "chain": "428 (bike, common stock)",
+  "pitch": 12.7,
+  "pinion_T": 14,
+  "wheel_T": 42,
+  "ratio": 3.0,
+  "PD1": 57.1,
+  "PD2": 169.9,
+  "centre_nom": 300.0,
+  "centre_slot": "+-15 (chain tension, separate from track screws)",
+  "pull_80Nm": 1883,
+  "tensile_N": 20000,
+  "result": "PASS margin >10",
+  "guard": "2mm MS cover both runs + sides, vented",
+  "motor": "1.2kW preferred (margin), 1kW OK; same keyway; slotted motor plate"
+}

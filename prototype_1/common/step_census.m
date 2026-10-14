@@ -1,0 +1,13 @@
+%% step_census.m — entity census of medium.stp (decides parse strategy)
+clear; clc;
+t = fileread('medium.stp');
+keys = {'MANIFOLD_SOLID_BREP','CLOSED_SHELL','ADVANCED_FACE','EDGE_LOOP', ...
+    'ORIENTED_EDGE','EDGE_CURVE','VERTEX_POINT','CARTESIAN_POINT', ...
+    'MAPPED_ITEM','ITEM_DEFINED_TRANSFORMATION','AXIS2_PLACEMENT_3D', ...
+    'NEXT_ASSEMBLY_USAGE_OCCURRENCE','PRODUCT_DEFINITION ','CYLINDRICAL_SURFACE', ...
+    'PLANE ','CONICAL_SURFACE','TOROIDAL_SURFACE','B_SPLINE'};
+fprintf('entity census:\n');
+for k = 1:numel(keys)
+    n = numel(strfind(t, keys{k}));
+    fprintf('  %-32s %d\n', strtrim(keys{k}), n);
+end
