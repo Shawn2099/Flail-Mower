@@ -1,5 +1,5 @@
-% SIM_V2  v2 proofs: 400kg/20deg worst, G3.43, hollow drums, 5mm plates,
-% single 6205/disc, SHS40/32 beams, 48T chain. PASS/FAIL gates. Base MATLAB only.
+% SIM_V2  v2 proofs: 400kg/20deg worst, G3.43, hollow drums, 6mm plates,
+% flange joints (28xM12), pinned shafts, SHS40 beams, 48T chain. PASS/FAIL gates. Base MATLAB only.
 clear; clc; fails=0;
 g=9.81; Rp=105.26; R=Rp; Ld=72*37; Ls=(Ld-2*pi*R)/2; Wm=0.18; A=2*(Ls/1000)*Wm;
 G=48/14; Gint=12;
@@ -33,8 +33,8 @@ for i=1:2
   sg=Mm/(pi*D^3/32)/1e6;
   if sg<150, s='PASS'; else, s='FAIL'; fails=fails+1; end
   fprintf('shaft %s bend=%.0fMPa %s\n',n,sg,s); end
-% plate seat: dia25 shaft in 5mm plate, radial 1.7kN worst -> bearing stress
-sigb=1700/(0.025*0.005)/1e6;
+% plate seat: dia25 shaft in 6mm plate, radial 1.7kN worst -> bearing stress
+sigb=1700/(0.025*0.006)/1e6;
 if sigb<200, s='PASS'; else, s='FAIL'; fails=fails+1; end
 fprintf('plate seat bearing=%.0fMPa (6mm common sheet, want<200) %s\n',sigb,s);
 % hollow drum weld: cheek fillet 3mm throat, shear from 1.7kN belt pull
@@ -55,8 +55,8 @@ for i=1:2
 pull=2*81/0.097; sf=20000/pull;
 if sf>8, s='PASS'; else, s='FAIL'; fails=fails+1; end
 fprintf('chain48 pull=%.0fN SF=%.1f %s\n',pull,sf,s);
-% bolts 8xM12/interface at 400kg
-Fb=400*9.81/16+81/0.09/8; cap=0.6*800*84.3;
+% bolts 28xM12 total (4/joint mid+rear, 2/joint front) at 400kg
+Fb=400*9.81/28+81/0.09/14; cap=0.6*800*84.3;
 if Fb<cap, s='PASS'; else, s='FAIL'; fails=fails+1; end
 fprintf('bolt M12 shear=%.0fN cap=%.0fN %s\n',Fb,cap,s);
 % beams SHS40x3.2/32x2.6: bending from 400kg CG500 tilt — envelope 500Nm
@@ -67,7 +67,7 @@ fprintf('beam SHS40 bend~%.0fMPa %s\n',sg2,s);
 fprintf('tension 33/50 PASS; clearances gorge3.5/win52/horn40/gaps38/43 PASS; mesh PASS\n');
 % mass v2
 mpl=4*1.302*0.19*0.006*7850; mro=12*1.88; mid=4*6.15; maxl=2*8;
-mspr=2*3.8; mbeam=22; mmot=2*9; mch=8; mbrg=16*0.13+4*2.2; mtrk=2*18.0;
+mspr=2*3.8; mbeam=14.6; mmot=2*9; mch=8; mbrg=16*0.13+4*2.2; mtrk=2*18.0; % beams was 22: -gussets/endplates/nuts/spacers(11.7) +flanges/washers/pins(4.3)
 mt=mpl+mro+mid+maxl+mspr+mbeam+mmot+mch+mbrg+mtrk;
 fprintf('mass plates%.0f roll%.0f idl%.0f axle%.0f spr%.0f beams%.0f mot%.0f ch/brg%.0f trk%.0f = %.0fkg\n',...
   mpl,mro,mid,maxl,mspr,mbeam,mmot,mch+mbrg,mtrk,mt);
