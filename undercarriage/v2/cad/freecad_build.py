@@ -30,10 +30,13 @@ for k, f in [('lam', 'sprocket_72z9.step'), ('drum', 'roller_drum.step'),
              ('rod', 'tension_rod_M12.step'), ('nut', 'nut_M19.step'),
              ('pinion', 'pinion_14Tref.step'), ('rail', 'rail_SHS40_L300.step'),
              ('tie', 'tie_SHS40_L320.step'), ('mount', 'deck_mount.step'),
-             ('tlug', 'lift_lug.step'), ('gus', 'gusset.step'),
-             ('spacer', 'spacer_tube.step'), ('guard', 'chain_guard.step'),
+             ('tlug', 'lift_lug.step'),
+             ('guard', 'chain_guard.step'),
              ('col', 'collar_D25.step'), ('eye', 'rod_eye.step'),
-             ('ep', 'endplate.step')]:
+             ('flgm', 'flange_mid_140x70x8.step'),
+             ('flgf', 'flange_front_50x70x8.step'),
+             ('washer', 'washer_D25_OD50.step'),
+             ('pin', 'pin_D6_L40.step')]:
     M[k] = Part.read(WS + f)
 
 spec = json.load(open(WS + 'plate_holes.json'))
@@ -100,7 +103,8 @@ for y, t in ((260, 'R'), (-260, 'L')):
     PL.append(('col', 'ColIdl%s_i' % t, 500.6, 157 if y > 0 else -145, 133.3, 90, 0))
     # tension: rods y=+-115 (145/375 R), lugs butted (133..157 / 363..387 R)
     for dy, nm in ((-115, 'i'), (115, 'o')):
-        PL.append(('rod', 'Rod%s%d' % (t, dy), 405, y + dy, 133, 0, 90))
+        # rod solid is built along +X (0..110) -> NO rotation for horizontal adjuster
+        PL.append(('rod', 'Rod%s%d' % (t, dy), 405, y + dy, 133, 0, 0))
     PL.append(('lug', 'LugRi' if t == 'R' else 'LugLi', 440, 133 if t == 'R' else -157, 113, 0, 0))
     PL.append(('lug', 'LugRo' if t == 'R' else 'LugLo', 440, 363 if t == 'R' else -387, 113, 0, 0))
     PL.append(('nut', 'Nut%sa' % t, 455, y - 115, 133, 0, 90))
@@ -109,8 +113,13 @@ for y, t in ((260, 'R'), (-260, 'L')):
     PL.append(('nut', 'Nut%sd' % t, 415, y + 115, 133, 0, 90))
     PL.append(('eye', 'Eye%si' % t, 465.6, 133 if t == 'R' else -157, 108.3, 0, 0))
     PL.append(('eye', 'Eye%so' % t, 465.6, 363 if t == 'R' else -387, 108.3, 0, 0))
-    for gx in (-200, 200):
-        PL.append(('spacer', 'Spc%s%d' % (t, gx), gx, y, 150, 90, 0))
+    # shaft outer retention: washer + R-pin outboard of collar (spacers deleted A2+D)
+    # shaft ends y390 (L260 @ y260); collar 363..375; washer 375..379; pin @381
+    for sx, sz in ((-300, 91.2), (0, 91.2), (300, 91.2), (500.6, 133.3)):
+        wy = 379 if y > 0 else -375
+        py = 381 if y > 0 else -381
+        PL.append(('washer', 'Wsh%s%d' % (t, sx), sx, wy, sz, 0, 0))
+        PL.append(('pin', 'Pin%s%d' % (t, sx), sx, py, sz, 0, 0))
 # centre: ties flush +-157; beams flush +-157; rails flat; motors on rails
 PL.append(('tie', 'TieR1', -366, 0, 170, 0, 0))
 PL.append(('motor', 'MotorR', -460, 69, 250, 0, 0))
@@ -119,10 +128,10 @@ PL.append(('pinion', 'PinR', -460, 140, 297, 90, 0))
 PL.append(('pinion', 'PinL', -460, -140, 297, 90, 0))
 PL.append(('guard', 'GrdR', -505, 146, 30, 0, 0))
 PL.append(('guard', 'GrdL', -505, -146, 30, 0, 0))
-PL.append(('beam', 'BeamFront', 500.6, 157, 90, 90, 0))
+PL.append(('beam', 'BeamFront', 585, 157, 105, 90, 0))
 PL.append(('beam', 'BeamMid1', -150, 157, 135, 90, 0))
 PL.append(('beam', 'BeamMid2', 150, 157, 135, 90, 0))
-for ry in (-180, -100, -40, 40):
+for ry in (-120, -40, 40, 120):
     PL.append(('rail', 'Rail%d' % ry, -625, ry, 230, 0, 90))
 PL.append(('mount', 'Mount1', -150, -100, 155, 0, 0))
 PL.append(('mount', 'Mount2', -150, 100, 155, 0, 0))
@@ -130,16 +139,15 @@ PL.append(('mount', 'Mount3', 150, -100, 155, 0, 0))
 PL.append(('mount', 'Mount4', 150, 100, 155, 0, 0))
 PL.append(('tlug', 'Lift1', -370, -100, 210, 0, 0))
 PL.append(('tlug', 'Lift2', -370, 100, 210, 0, 0))
-for gx, tag, gy, gz in ((-150, 'R-150', 163, 120), (150, 'R150', 163, 120),
-                       (-150, 'L-150', -175, 120), (150, 'L150', -175, 120),
-                       (500.6, 'Rf', 163, 75), (500.6, 'Lf', -175, 75),
-                       (-366, 'Rr', 163, 155), (-366, 'Lr', -175, 155)):
-    PL.append(('gus', 'Gus' + tag, gx, gy, gz, 0, 0))
-for jx, tag, gy, gz in ((-150, 'E1', 157, 120), (150, 'E2', 157, 120),
-                       (-150, 'E3', -163, 120), (150, 'E4', -163, 120),
-                       (500.6, 'E5', 163, 75), (500.6, 'E6', -169, 75),
-                       (-366, 'E7', 163, 155), (-366, 'E8', -169, 155)):
-    PL.append(('ep', 'End' + tag, jx, gy, gz, 0, 0))
+# flange joints (sketch mid-beam-plan): flange welded to beam end, 4xM12 (mid/rear)
+# or 2xM12 (front, nose room) through side plate. Plates carry matching holes only.
+for fx, tag in ((-150, 'M1'), (150, 'M2')):
+    PL.append(('flgm', 'FlgR' + tag, fx, 149, 135, 0, 0))
+    PL.append(('flgm', 'FlgL' + tag, fx, -157, 135, 0, 0))
+PL.append(('flgm', 'FlgRr', -366, 149, 190, 0, 0))
+PL.append(('flgm', 'FlgLr', -366, -157, 190, 0, 0))
+PL.append(('flgf', 'FlgRf', 585, 149, 105, 0, 0))
+PL.append(('flgf', 'FlgLf', 585, -157, 105, 0, 0))
 
 for (key, label, bx, by, bz, rx, ry) in PL:
     o = doc.addObject('Part::Feature', label)
@@ -200,10 +208,9 @@ def vgap(a, b):
                C.ZMin - A.ZMax, A.ZMin - C.ZMax)
 
 
-CHECKS = [('LugRi', 'PlateR_in', 0.0), ('RodR-115', 'LugRi', 0.0),
-          ('GusR-150', 'PlateR_in', 0.0),
-          ('GusR-150', 'BeamMid1', 0.0), ('GusRf', 'BeamFront', 0.0),
-          ('GusRr', 'TieR1', 0.0), ('EndE1', 'PlateR_in', 0.0),
+CHECKS = [('LugRi', 'PlateR_in', 0.0),
+          ('FlgRM2', 'PlateR_in', 0.0),
+          ('FlgRr', 'PlateR_in', 0.0), ('FlgRf', 'PlateR_in', 0.0),
           ('ColR0_o', 'PlateR_in', 0.0), ('Rail40', 'MotorR', 0.0),
           ('Mount1', 'BeamMid1', 0.0), ('Lift1', 'TieR1', 0.0),
           ('DruR-300in', 'PlateR_in', 8.0), ('UcfR', 'PlateR_out', 0.0),
@@ -217,6 +224,7 @@ CHECKS = [('LugRi', 'PlateR_in', 0.0), ('RodR-115', 'LugRi', 0.0),
 print('EyeRi-IdlShaftR axes offset 0.0/0.0 FIT (bore)')
 print('RodR-115-EyeRi axes dz 0.3 FIT (tap)')
 print('RodR-115-LugRi axes offset 0.0 FIT (clearance hole)')
+print('Flg-beam caps overlap 8mm by design (fillet weld tube-to-flange)')
 nfail = 0
 for a, b, need in CHECKS:
     s = vgap(a, b)
