@@ -17,7 +17,8 @@
 - 100NB-M pipe 114.3x4.5 x0.6m (12x drums w40) | SHS40x40x3.2: L320 x5 + L300 x4 rails | 50x8 flat 0.5m (lugs) | M12 threaded rod 2m (tension rods + spare) | dia25 bright 2m (8 shafts L220) | dia40 bright 0.6m (2 axles L240 + keyway outsource)
 
 ## COTS (buy)
-- 6205-2RS x16+4 spare | UCFL208 x4 (CONFIRM hole spacing vs plate slots) | R15 V4 chain sets x2 (48T adapt bore+key, chain cut ~58L) | plain 428-14T x2 (bore+key to motor) | Mecwin 1.2kW x2 + drivers | M12x40 + nuts + washers x28 (beam flanges: 4/joint mid+rear, 2/joint front) + R-pins dia6x40 x8 + washers OD50x26x4 x8 (shaft ends, cross-drill dia6 at build) + M6 grubs x16 (collars, Loctite 638) + M12/M10/M14 hw + nylocs + washers | Loctite 638 50ml | rubber mounts M12 x4 | 48V20Ah pack (runtime NOTE below)
+- 6205-2RS x16+4 spare | UCFL208 x4 (CONFIRM hole spacing vs plate slots) | R15 V4 chain sets x2 (48T adapt bore+key, chain cut ~58L) | plain 428-14T x2 (bore+key to motor) | Mecwin 1.2kW x2 + drivers | M12x40 + nuts + washers x28 (beam flanges: 4/joint mid+rear, 2/joint front) + R-pins dia6x40 x8 + washers OD50x26x4 x8 (shaft ends, cross-drill dia6 at build) + M6 grubs x16 (collars, Loctite 638) + TVS 8.8 M12/M10/M14 hw + TVS nylocks + hardened washers everywhere STRUCTURAL (adjuster screws keep plain + jam nuts — nylock wears under repeated adjustment, 5 reuses max) | Loctite 638 50ml | rubber mounts M12 x4 | 48V20Ah pack (runtime NOTE below)
+- FASTENER RULE: TVS 8.8 only, buy authorised (check 8.8 + TVS head marks); nylock = anti-loosen, NOT a substitute for torque — still torque flange M12s to 80Nm + paint-mark.
 
 ## Outsource (2 vendors)
 1. Laser shop: 9 DXFs above. 2. Machine shop: 6 keyways (2 axle + 2 hub76 + 2 plain-14T) + 2x 48T bore adapt.
