@@ -1,0 +1,39 @@
+{
+  "track": "180x72x37 revA windowed",
+  "W": 180.0,
+  "pitch": 72.0,
+  "links": 37,
+  "B": 23.0,
+  "A": 66.0,
+  "C": 28.5,
+  "D": 28.5,
+  "windows": {
+    "n": 37,
+    "len": 52.0,
+    "width": 20.0,
+    "through": 12.0,
+    "corners": "R3 at cut (note for tooling)"
+  },
+  "loop": {
+    "Ld": 2664.0,
+    "R": 105.26,
+    "Ls": 1001.3
+  },
+  "mass_kg": 18.0,
+  "stl": {
+    "file": "track_180x72x37_windowed.stl",
+    "facets": 3552,
+    "bbox": [
+      1277.6,
+      180.0,
+      273.7
+    ],
+    "counts": {
+      "bands": 74,
+      "rungs": 37,
+      "horns": 74,
+      "lugs": 74,
+      "cores": 37
+    }
+  }
+}

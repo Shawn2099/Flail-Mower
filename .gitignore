@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# CAD build artifacts (regenerate from .py scripts)
+*.stl
+*.step
+*.stp
+*.dxf
+
+# FreeCAD backup files
+*.FCStd1
+*.FCStd2
+*.FCBak
+
+# MATLAB
+*.mat
+*.mlx
+*.mldatx
+*.autosave
+*.asv
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Temp
+_run.txt

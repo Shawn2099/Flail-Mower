@@ -1,0 +1,502 @@
+{
+ "units": "mm",
+ "n_parts": 31,
+ "parts": [
+  {
+   "name": "rail_L",
+   "group": "fabricated",
+   "bbox_min": [
+    -172.5,
+    -117.5,
+    104.0
+   ],
+   "bbox_max": [
+    -147.5,
+    117.5,
+    129.0
+   ],
+   "volume_mm3": 35193.6,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "rail_R",
+   "group": "fabricated",
+   "bbox_min": [
+    147.5,
+    -117.5,
+    104.0
+   ],
+   "bbox_max": [
+    172.5,
+    117.5,
+    129.0
+   ],
+   "volume_mm3": 35193.6,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "cross_F",
+   "group": "fabricated",
+   "bbox_min": [
+    -172.5,
+    117.5,
+    104.0
+   ],
+   "bbox_max": [
+    172.5,
+    142.5,
+    129.0
+   ],
+   "volume_mm3": 51667.2,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "cross_R",
+   "group": "fabricated",
+   "bbox_min": [
+    -172.5,
+    -142.5,
+    104.0
+   ],
+   "bbox_max": [
+    172.5,
+    -117.5,
+    129.0
+   ],
+   "volume_mm3": 51667.2,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "deck",
+   "group": "fabricated",
+   "bbox_min": [
+    -177.5,
+    -175.0,
+    144.9
+   ],
+   "bbox_max": [
+    177.5,
+    175.0,
+    146.5
+   ],
+   "volume_mm3": 198084.974,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "motor_carrier",
+   "group": "fabricated",
+   "bbox_min": [
+    -60.0,
+    -147.5,
+    129.0
+   ],
+   "bbox_max": [
+    60.0,
+    147.5,
+    134.0
+   ],
+   "volume_mm3": 101928.875,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "post_R_L",
+   "group": "fabricated",
+   "bbox_min": [
+    -168.0,
+    -108.0,
+    129.0
+   ],
+   "bbox_max": [
+    -152.0,
+    -92.0,
+    144.9
+   ],
+   "volume_mm3": 3000.535,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "post_F_L",
+   "group": "fabricated",
+   "bbox_min": [
+    -168.0,
+    92.0,
+    129.0
+   ],
+   "bbox_max": [
+    -152.0,
+    108.0,
+    144.9
+   ],
+   "volume_mm3": 3000.535,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "post_R_R",
+   "group": "fabricated",
+   "bbox_min": [
+    152.0,
+    -108.0,
+    129.0
+   ],
+   "bbox_max": [
+    168.0,
+    -92.0,
+    144.9
+   ],
+   "volume_mm3": 3000.535,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "post_F_R",
+   "group": "fabricated",
+   "bbox_min": [
+    152.0,
+    92.0,
+    129.0
+   ],
+   "bbox_max": [
+    168.0,
+    108.0,
+    144.9
+   ],
+   "volume_mm3": 3000.535,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "guard",
+   "group": "fabricated",
+   "bbox_min": [
+    -122.0,
+    -122.0,
+    15.0
+   ],
+   "bbox_max": [
+    122.0,
+    122.0,
+    70.0
+   ],
+   "volume_mm3": 104320.511,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "bracket_R_L",
+   "group": "fabricated",
+   "bbox_min": [
+    -178.5,
+    -160.0,
+    69.0
+   ],
+   "bbox_max": [
+    -172.5,
+    -100.0,
+    129.0
+   ],
+   "volume_mm3": 20484.494,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "bracket_F_L",
+   "group": "fabricated",
+   "bbox_min": [
+    -178.5,
+    100.0,
+    69.0
+   ],
+   "bbox_max": [
+    -172.5,
+    160.0,
+    129.0
+   ],
+   "volume_mm3": 19696.148,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "stub_L",
+   "group": "fabricated",
+   "bbox_min": [
+    -242.5,
+    120.0,
+    75.0
+   ],
+   "bbox_max": [
+    -172.5,
+    140.0,
+    95.0
+   ],
+   "volume_mm3": 21741.068,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "bracket_R_R",
+   "group": "fabricated",
+   "bbox_min": [
+    172.5,
+    -160.0,
+    69.0
+   ],
+   "bbox_max": [
+    178.5,
+    -100.0,
+    129.0
+   ],
+   "volume_mm3": 20484.494,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "bracket_F_R",
+   "group": "fabricated",
+   "bbox_min": [
+    172.5,
+    100.0,
+    69.0
+   ],
+   "bbox_max": [
+    178.5,
+    160.0,
+    129.0
+   ],
+   "volume_mm3": 19696.148,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "stub_R",
+   "group": "fabricated",
+   "bbox_min": [
+    172.5,
+    120.0,
+    75.0
+   ],
+   "bbox_max": [
+    242.5,
+    140.0,
+    95.0
+   ],
+   "volume_mm3": 21741.068,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "guard_tab_R",
+   "group": "fabricated",
+   "bbox_min": [
+    -15.0,
+    -123.25,
+    70.0
+   ],
+   "bbox_max": [
+    15.0,
+    -120.75,
+    104.0
+   ],
+   "volume_mm3": 2550.0,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "guard_tab_F",
+   "group": "fabricated",
+   "bbox_min": [
+    -15.0,
+    120.75,
+    70.0
+   ],
+   "bbox_max": [
+    15.0,
+    123.25,
+    104.0
+   ],
+   "volume_mm3": 2550.0,
+   "density_kg_m3": 7850.0
+  },
+  {
+   "name": "wheel_R_L",
+   "group": "bought",
+   "bbox_min": [
+    -232.5,
+    -215.0,
+    0.0
+   ],
+   "bbox_max": [
+    -187.5,
+    -45.0,
+    170.0
+   ],
+   "volume_mm3": 1006412.191,
+   "density_kg_m3": null
+  },
+  {
+   "name": "wheel_F_L",
+   "group": "bought",
+   "bbox_min": [
+    -232.5,
+    45.0,
+    0.0
+   ],
+   "bbox_max": [
+    -187.5,
+    215.0,
+    170.0
+   ],
+   "volume_mm3": 1006412.191,
+   "density_kg_m3": null
+  },
+  {
+   "name": "wheel_R_R",
+   "group": "bought",
+   "bbox_min": [
+    187.5,
+    -215.0,
+    0.0
+   ],
+   "bbox_max": [
+    232.5,
+    -45.0,
+    170.0
+   ],
+   "volume_mm3": 1006412.191,
+   "density_kg_m3": null
+  },
+  {
+   "name": "wheel_F_R",
+   "group": "bought",
+   "bbox_min": [
+    187.5,
+    45.0,
+    0.0
+   ],
+   "bbox_max": [
+    232.5,
+    215.0,
+    170.0
+   ],
+   "volume_mm3": 1006412.191,
+   "density_kg_m3": null
+  },
+  {
+   "name": "motor_775",
+   "group": "bought",
+   "bbox_min": [
+    -22.25,
+    -22.25,
+    75.0
+   ],
+   "bbox_max": [
+    22.25,
+    22.25,
+    141.0
+   ],
+   "volume_mm3": 102648.791,
+   "density_kg_m3": null
+  },
+  {
+   "name": "hub_D50",
+   "group": "bought",
+   "bbox_min": [
+    -25.0,
+    -25.0,
+    60.0
+   ],
+   "bbox_max": [
+    25.0,
+    25.0,
+    75.0
+   ],
+   "volume_mm3": 29452.431,
+   "density_kg_m3": null
+  },
+  {
+   "name": "hub_shaft_L",
+   "group": "bought",
+   "bbox_min": [
+    -187.5,
+    -138.0,
+    77.0
+   ],
+   "bbox_max": [
+    -130.5,
+    -122.0,
+    90.5
+   ],
+   "volume_mm3": 10316.868,
+   "density_kg_m3": null
+  },
+  {
+   "name": "axle_washer_L",
+   "group": "bought",
+   "bbox_min": [
+    -172.5,
+    -145.0,
+    70.0
+   ],
+   "bbox_max": [
+    -170.5,
+    -115.0,
+    100.0
+   ],
+   "volume_mm3": 959.757,
+   "density_kg_m3": null
+  },
+  {
+   "name": "axle_nut_L",
+   "group": "bought",
+   "bbox_min": [
+    -170.5,
+    -143.9,
+    71.1
+   ],
+   "bbox_max": [
+    -157.5,
+    -116.1,
+    98.9
+   ],
+   "volume_mm3": 5211.274,
+   "density_kg_m3": null
+  },
+  {
+   "name": "hub_shaft_R",
+   "group": "bought",
+   "bbox_min": [
+    130.5,
+    -138.0,
+    77.0
+   ],
+   "bbox_max": [
+    187.5,
+    -122.0,
+    90.5
+   ],
+   "volume_mm3": 10316.868,
+   "density_kg_m3": null
+  },
+  {
+   "name": "axle_washer_R",
+   "group": "bought",
+   "bbox_min": [
+    170.5,
+    -145.0,
+    70.0
+   ],
+   "bbox_max": [
+    172.5,
+    -115.0,
+    100.0
+   ],
+   "volume_mm3": 959.757,
+   "density_kg_m3": null
+  },
+  {
+   "name": "axle_nut_R",
+   "group": "bought",
+   "bbox_min": [
+    157.5,
+    -143.9,
+    71.1
+   ],
+   "bbox_max": [
+    170.5,
+    -116.1,
+    98.9
+   ],
+   "volume_mm3": 5211.274,
+   "density_kg_m3": null
+  }
+ ]
+}

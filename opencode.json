@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "matlab": {
+        "type": "local",
+        "timeout": {
+          "startup": 180000
+        },
+        "command": [
+          "C:\\Users\\malliath\\.local\\bin\\matlab-mcp-server-windows-x64.exe",
+          "--matlab-root=C:\\Program Files\\MATLAB\\R2026b",
+          "--initial-working-folder=C:\\Users\\malliath\\Desktop\\matlab"
+        ]
+      },
+      "build123d": {
+        "type": "local",
+        "timeout": {
+          "startup": 180000
+        },
+        "command": [
+          "C:\\Users\\malliath\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+          "-m",
+          "build123d_mcp"
+        ]
+      }
+      "freecad": {
+        "type": "local",
+        "timeout": {
+          "startup": 180000
+        },
+        "command": [
+          "C:\\Users\\malliath\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+          "-m",
+          "freecad_mcp"
+        ]
+      }
+    }
+  }
+}
