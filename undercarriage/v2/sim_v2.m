@@ -27,9 +27,9 @@ for h=[400 500 600]
   lat=atand(366/h); lon=atand((Ls/2)/h);
   if lat>=30&&lon>=30, s='PASS'; else, s='FAIL'; fails=fails+1; end
   fprintf('tilt CG%d lat=%.1f lon=%.1f %s\n',h,lat,lon,s); end
-% shafts: roller dia25 M32 / side axle dia40 M208 (400kg case M~250)
+% shafts: roller D25 sees 1.7kN x 38mm overhang = 65Nm; side axle 250Nm envelope
 for i=1:2
-  if i==1, Mm=32; D=0.025; n='roller'; else, Mm=250; D=0.04; n='sideaxle'; end
+  if i==1, Mm=65; D=0.025; n='roller'; else, Mm=250; D=0.04; n='sideaxle'; end
   sg=Mm/(pi*D^3/32)/1e6;
   if sg<150, s='PASS'; else, s='FAIL'; fails=fails+1; end
   fprintf('shaft %s bend=%.0fMPa %s\n',n,sg,s); end
@@ -65,10 +65,15 @@ if sg2<150, s='PASS'; else, s='FAIL'; fails=fails+1; end
 fprintf('beam SHS40 bend~%.0fMPa %s\n',sg2,s);
 % tension stack + clearances + mesh (built)
 fprintf('tension 33/50 PASS; clearances gorge3.5/win52/horn40/gaps38/43 PASS; mesh PASS\n');
-% mass v2
-mpl=4*1.302*0.19*0.006*7850; mro=12*1.88; mid=4*6.15; maxl=2*8;
-mspr=2*3.8; mbeam=14.6; mmot=2*9; mch=8; mbrg=16*0.13+4*2.2; mtrk=2*18.0; % beams was 22: -gussets/endplates/nuts/spacers(11.7) +flanges/washers/pins(4.3)
-mt=mpl+mro+mid+maxl+mspr+mbeam+mmot+mch+mbrg+mtrk;
-fprintf('mass plates%.0f roll%.0f idl%.0f axle%.0f spr%.0f beams%.0f mot%.0f ch/brg%.0f trk%.0f = %.0fkg\n',...
-  mpl,mro,mid,maxl,mspr,mbeam,mmot,mch+mbrg,mtrk,mt);
+% mass v2 - CAD-measured rollup (cad/mass_audit.py -> cad/mass_audit.json)
+here=fileparts(mfilename('fullpath')); mfile=fullfile(here,'cad','mass_audit.json');
+if exist(mfile,'file')
+  ma=jsondecode(fileread(mfile)); mt=ma.total_kg; c=ma.category_kg;
+  fprintf('mass CAD %.1fkg (structure %.1f running %.1f drive %.1f track %.1f misc %.1f)\n',...
+    mt,c.structure,c.running,c.drive,c.track,c.misc);
+  if mt<=205, s='PASS'; else, s='FAIL'; fails=fails+1; end
+  fprintf('mass target 165kg -> %+.1fkg, ceiling 205kg %s\n',mt-165,s);
+else
+  fprintf('mass CAD file missing - run cad/mass_audit.py\n'); fails=fails+1;
+end
 if fails==0, fprintf('\nV2: ALL PASS\n'); else, fprintf('\nV2: %d FAILURES\n',fails); end

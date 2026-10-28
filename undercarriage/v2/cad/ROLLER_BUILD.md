@@ -1,13 +1,13 @@
 # ROLLER DRUM BUILD — 12 nos (3 stations x paired discs x 2 sides). MS-ERW, no lathe.
 
 ## Per-drum parts (BOM)
-- Pipe 100NB-M 114.3x4.5, cut 40 long (12)
+- Pipe 100NB-M 114.3x4.5, cut 28 long (12) - plus 2x6 cheeks = 40 overall
 - Cheek OD114/ID65/6mm laser (24) — STRUCTURAL ring stiffeners, not covers
 - Hub: 5x laser rings OD65/ID52x8mm stacked to 40 (60 for rollers + 20 idlers = 80) + 6205-2RS (16)
 - Shaft dia25 bright (shared 1/station), collars + M6 grubs + R-pins + washers
 
 ## Sequence (per drum)
-1. Cut pipe 40mm, deburr ID/OD, grind weld zones bright (both ends, 10mm band).
+1. Cut pipe 28mm, deburr ID/OD, grind weld zones bright (both ends, 10mm band).
 2. Trial-fit: cheek OD flush with pipe OD; hub slides through cheek ID65 by hand (0.05-0.15 gap for Loctite).
 3. HUB STACK (no lathe — the 6205 itself is the jig):
    a. Laser rings OD65/ID52x8, deburr + acetone degrease (oil/scale kills Loctite).

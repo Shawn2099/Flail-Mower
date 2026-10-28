@@ -14,12 +14,15 @@ root = pathlib.Path(__file__).resolve().parent
 def roller(D, w, tag, hollow=True, single_brg=True):
     bore, brg_od, brg_w = 25.0, 52.0, 15.0
     n_brg = 1 if single_brg else 2
-    if 'idler' in tag:  # v2: laser RINGS D200/ID150 5x8mm + small turned hub (NO big lathe:
-        # laser OD +-0.3 is fine on rubber; deburr + flap-disc only; hub dia65 fits any lathe)
-        m = 5*(math.pi/4*((D/1000)**2-0.150**2)*0.008*7850) + 1.5 + n_brg*0.13 + 0.2
-        proc = "5x 8mm laser rings D200/ID150 + ring-stack hub + Loctite 638, weld stack, NO skim (flap-disc max 1mm), NO ream, 1x6205 press + circlip"
+    if 'idler' in tag:  # v2: 4 laser rings D200/ID150 + 1 web 150/65 + hub
+        # web is structural (audit 2026-10-29): tread -> web -> hub load path
+        m_rings = 4 * (math.pi/4*((D/1000)**2-0.150**2)*0.008*7850)
+        m_web = math.pi/4*(0.150**2-0.065**2)*0.008*7850
+        m_hub = math.pi/4*(0.065**2-0.052**2)*0.040*7850
+        m = m_rings + m_web + m_hub + n_brg*0.13 + 0.05
+        proc = "4x 8mm laser rings D200/ID150 + 1x 8mm web OD150/ID65 + ring-stack hub + Loctite 638, weld stack, NO skim, 1x6205 press + circlip"
     else:  # v2: pipe shell + laser cheeks + hub
-        m_shell = math.pi/4*((D/1000)**2-((D-9)/1000)**2)*(w/1000)*7850
+        m_shell = math.pi/4*((D/1000)**2-((D-9)/1000)**2)*((w-12)/1000)*7850
         m = m_shell + 2*(math.pi/4*((D/1000)**2-0.052**2)*0.006*7850) + 0.3 + n_brg*0.13 + 0.2
         proc = "100NB-M shell + 2 laser cheeks + hollow-bar/hub rings + Loctite 638, weld, NO skim, NO ream (clamp shafts), 1x6205 press + circlip"
     data = {"tag": tag, "drum_OD": D, "tread_w": w, "hollow_v2": hollow,

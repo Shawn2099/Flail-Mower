@@ -1,5 +1,12 @@
 # V2 OPTIMIZE — max weight loss + easiest MFD/COTS (400kg worst, 20° max, 1.2kW/side)
 
+> **2026-10-29 audit (as-built):** 199.9 kg incl tracks + motors, not ~165 kg. The 165
+> estimate undercounted shafts/collars/idlers and assumed 5 mm plates + SHS32, which the
+> trim study rejected for shop tolerance. Frozen build stays **6 mm plates / 8 mm
+> sprockets / SHS40 (6-8-40)**. Corrections: axle L300 (was L240, only 17 mm in the UCFL
+> bore), keyways at 142-157 / 238-282, chain 60 links (was 58), overall W826 not 732,
+> chain plane 140 both sides. See AUDIT.md, MASS.md, drawings/.
+
 Basis: v1 sims ALL PASS + MBS paper (tension peaks at sprocket, top run slack) +
 FTS guides (debris wedge, sag 10-50, sprocket-with-2nd-track rule) + shop limits.
 Note: v1 rollup double-counted tracks (246 incl 2x36); true v1 = **~210kg** incl tracks.

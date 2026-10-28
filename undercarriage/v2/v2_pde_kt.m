@@ -4,14 +4,22 @@ clear; clc;
 Kt_hole = kt_hole();      % D26-class hole in strip
 Kt_slot = kt_slot();      % obround slot end (idler/UCFL slots)
 fprintf('Kt hole=%.2f slot-end=%.2f\n', Kt_hole, Kt_slot);
-% apply to V2 nominals (burst allow 225 = 0.9*yield for rare peak)
-nom = [113.6 77.5 70.8];            % beam, flange, plate-panel MPa
-Kt  = [1.0 Kt_hole Kt_slot];        % beam critical section has no holes
+% apply Kt where a free hole/slot edge carries net section:
+% beam midspan (no hole) and plate panel at slot end.
+nom = [113.6 70.8];                 % beam, plate-panel MPa
+Kt  = [1.0 Kt_slot];
 peak = nom.*Kt;
-for i=1:3
+for i=1:2
   s='PASS'; if peak(i)>225, s='REVIEW'; end
   fprintf('peak%d = %.0fMPa (allow 225 rare-peak) %s\n', i, peak(i), s);
 end
+% Flange joint: 4xM12 80Nm friction-grip. If it does not slip, the bolt
+% holes are not in bearing and the free-hole Kt does not apply (the 248MPa
+% figure is a gross-section upper bound, not a joint stress).
+Tb=80; K=0.2; d=0.012; Fcl=Tb/(K*d); n=4; mu=0.3; V=1670;
+SF=mu*n*Fcl/V;
+s='PASS'; if SF<1.5, s='REVIEW'; end
+fprintf('flange grip SF=%.1f (V=%.0fN, 4xM12@80Nm, mu0.3) %s; hole-Kt N/A (no slip)\n',SF,V,s);
 fprintf('T1 DONE\n');
 function Kt = kt_hole()
   model = createpde('structural','static-planestress');

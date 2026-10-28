@@ -10,6 +10,7 @@
     "circlip": "52x1.5 DIN472",
     "band_clear": "w40 disc on side bands (170-227/293-350), clears horns A66 + plates ~10"
   },
-  "process": "5x 8mm laser rings D200/ID150 + ring-stack hub + Loctite 638, weld stack, NO skim (flap-disc max 1mm), NO ream, 1x6205 press + circlip",
-  "mass_kg": 6.15
+  "process": "5x 8mm laser rings D200/ID150 + 1x 6mm web OD150/ID65 + ring-stack hub + Loctite 638, weld stack, NO skim, 1x6205 press + circlip",
+  "mass_kg": 5.37,
+  "structure": "5 tread rings (40) + central 6mm web inside the bore; web connects tread to hub"
 }

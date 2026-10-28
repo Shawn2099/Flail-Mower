@@ -7,8 +7,10 @@ Track centres y=+-260 (belt 170..350, horns 227..293, B-gap 248.5..271.5).
 Loop R=105.26, centre cz=133.3, Ls=1001.3. Rollers x=-300/0/300, z=91.2,
 D114.3 paired discs at track+-62, w40. Idler x=500.6 z=133.3 D200 paired.
 Sprocket+axle x=-500.6 z=133.3. Plates 6mm: R 157..163/357..363, z 30..250.
-Beams/ties span y +-157 flush. Chain 14T/48T G=3.43, wheels at y=+-142.
-Solids live in v2/cad/*.step (measured local frames in 2026-10-14 session).
+Beams/ties span y +-157 flush. Chain 14T/48T G=3.43, chain plane y=+-140.
+Side axle D40x300 (keyways 136..155 / 238..282), UCFL208 outboard 363..413.
+Solids live in v2/cad/*.step (measured local frames in 2026-10-14 session;
+axle/collar corrected 2026-10-29 by build_v2_axle.py).
 Collar solid local z 0..12 -> base-12..base after rotX90.
 Nut solid local z -5..5 -> spans base..base+10 after rotY90... verified by run output.
 """
@@ -22,7 +24,8 @@ for o in list(doc.Objects):
 
 M = {}
 for k, f in [('lam', 'sprocket_72z9.step'), ('drum', 'roller_drum.step'),
-             ('ring', 'idler_ring.step'), ('shaft', 'shaft_D25_L260.step'),
+             ('ring', 'idler_ring.step'), ('iweb', 'idler_web.step'),
+             ('shaft', 'shaft_D25_L260.step'),
              ('axle', 'side_axle.step'), ('w48', 'chainwheel_48Tref.step'),
              ('ucfl', 'ucfl208_ref.step'), ('beam', 'beam_SHS40.step'),
              ('hub76', 'hub76_OD76.step'), ('hub65', 'hub65_OD65.step'),
@@ -32,7 +35,8 @@ for k, f in [('lam', 'sprocket_72z9.step'), ('drum', 'roller_drum.step'),
              ('tie', 'tie_SHS40_L320.step'), ('mount', 'deck_mount.step'),
              ('tlug', 'lift_lug.step'),
              ('guard', 'chain_guard.step'),
-             ('col', 'collar_D25.step'), ('eye', 'rod_eye.step'),
+             ('col', 'collar_D25.step'), ('col40', 'collar_D40_OD60.step'),
+             ('eye', 'rod_eye.step'),
              ('flgm', 'flange_mid_140x70x8.step'),
              ('flgf', 'flange_front_50x70x8.step'),
              ('washer', 'washer_D25_OD50.step'),
@@ -86,16 +90,24 @@ for y, t in ((260, 'R'), (-260, 'L')):
         # collars butt plate outer faces: R spans 145..157/363..375 (base 157/375)
         PL.append(('col', 'Col%s%d_o' % (t, rx), rx, 375 if y > 0 else -363, 91.2, 90, 0))
         PL.append(('col', 'Col%s%d_i' % (t, rx), rx, 157 if y > 0 else -145, 91.2, 90, 0))
-    PL.append(('axle', 'Axle%s' % t, -500.6, y, 133.3, 90, 0))
+    # axle: same solid rotated +-90 so its keyway stations mirror with the side
+    PL.append(('axle', 'Axle%s' % t, -500.6, y, 133.3,
+               90 if y > 0 else -90, 0))
     PL.append(('lam', 'Spr%sa' % t, -500.6, y + 8, 133.3, 90, 0))
     PL.append(('lam', 'Spr%sb' % t, -500.6, y, 133.3, 90, 0))
     PL.append(('hub76', 'Hub%s' % t, -500.6, y + 22, 133.3, 90, 0))
-    PL.append(('w48', 'Whl%s' % t, -500.6, 142 if y > 0 else -142, 133.3, 90, 0))
+    # 48T chain plane y=+-140: 4 mm ref plate spans 138..142 (R) / -142..-138 (L)
+    PL.append(('w48', 'Whl%s' % t, -500.6, 142 if y > 0 else -138, 133.3, 90, 0))
+    # axle shaft collars (D40 OD60x12): trap 48T wheel and 72z hub
+    PL.append(('col40', 'ColAxleW%s' % t, -500.6, 132 if y > 0 else -132, 133.3, 90, 0))
+    PL.append(('col40', 'ColAxleH%s' % t, -500.6, 288 if y > 0 else -288, 133.3, 90, 0))
     PL.append(('ucfl', 'Ucf%s' % t, -500.6, 363 if y > 0 else -363, 133.3, -90 if y > 0 else 90, 0))
     for doff, inn in ((-62, 'in'), (62, 'out')):
         Yc = y + doff
+        # 5 tread rings = 40 wide + central web inside the bore (audit fix)
         for k in range(5):
             PL.append(('ring', 'Idl%s%s%d' % (t, inn, k), 500.6, Yc + 20 - k * 8, 133.3, 90, 0))
+        PL.append(('iweb', 'IdlWeb%s%s' % (t, inn), 500.6, Yc, 133.3, 90, 0))
         PL.append(('hub65', 'IdlHub%s%s' % (t, inn), 500.6, Yc + 20, 133.3, 90, 0))
         PL.append(('brg', 'IdlBrg%s%s' % (t, inn), 500.6, Yc + 7.5, 133.3, 90, 0))
     PL.append(('shaft', 'IdlShaft%s' % t, 500.6, y, 133.3, 90, 0))
@@ -124,8 +136,8 @@ for y, t in ((260, 'R'), (-260, 'L')):
 PL.append(('tie', 'TieR1', -366, 0, 170, 0, 0))
 PL.append(('motor', 'MotorR', -460, 69, 250, 0, 0))
 PL.append(('motor', 'MotorL', -460, -69, 250, 0, 0))
-PL.append(('pinion', 'PinR', -460, 140, 297, 90, 0))
-PL.append(('pinion', 'PinL', -460, -140, 297, 90, 0))
+PL.append(('pinion', 'PinR', -460, 143, 297, 90, 0))   # spans 137..143, plane 140
+PL.append(('pinion', 'PinL', -460, -137, 297, 90, 0))  # spans -143..-137, plane -140
 PL.append(('guard', 'GrdR', -505, 146, 30, 0, 0))
 PL.append(('guard', 'GrdL', -505, -146, 30, 0, 0))
 PL.append(('beam', 'BeamFront', 585, 157, 105, 90, 0))
@@ -137,8 +149,9 @@ PL.append(('mount', 'Mount1', -150, -100, 155, 0, 0))
 PL.append(('mount', 'Mount2', -150, 100, 155, 0, 0))
 PL.append(('mount', 'Mount3', 150, -100, 155, 0, 0))
 PL.append(('mount', 'Mount4', 150, 100, 155, 0, 0))
-PL.append(('tlug', 'Lift1', -370, -100, 210, 0, 0))
-PL.append(('tlug', 'Lift2', -370, 100, 210, 0, 0))
+# lift lugs welded UNDER the rear tie (2026-10-29: at z210 they were inside the motors)
+PL.append(('tlug', 'Lift1', -370, -100, 130, 0, 0))
+PL.append(('tlug', 'Lift2', -370, 100, 130, 0, 0))
 # flange joints (sketch mid-beam-plan): flange welded to beam end, 4xM12 (mid/rear)
 # or 2xM12 (front, nose room) through side plate. Plates carry matching holes only.
 for fx, tag in ((-150, 'M1'), (150, 'M2')):
@@ -211,8 +224,12 @@ def vgap(a, b):
 CHECKS = [('LugRi', 'PlateR_in', 0.0),
           ('FlgRM2', 'PlateR_in', 0.0),
           ('FlgRr', 'PlateR_in', 0.0), ('FlgRf', 'PlateR_in', 0.0),
-          ('ColR0_o', 'PlateR_in', 0.0), ('Rail40', 'MotorR', 0.0),
-          ('Mount1', 'BeamMid1', 0.0), ('Lift1', 'TieR1', 0.0),
+          ('ColR0_i', 'PlateR_in', 0.0), ('ColR0_o', 'PlateR_out', 0.0),
+          ('ColIdlR_i', 'PlateR_in', 0.0), ('ColIdlR_o', 'PlateR_out', 0.0),
+          ('ColAxleWR', 'WhlR', 0.0), ('ColAxleHR', 'HubR', 0.0),
+          ('ColAxleWL', 'WhlL', 0.0), ('ColAxleHL', 'HubL', 0.0),
+          ('Rail40', 'MotorR', 0.0),
+          ('Mount1', 'BeamMid1', 0.0), ('Lift1', 'MotorR', 20.0),
           ('DruR-300in', 'PlateR_in', 8.0), ('UcfR', 'PlateR_out', 0.0),
           ('TieR1', 'WhlR', 10.0), ('SprRa', 'PlateR_in', 50.0),
           ('MotorR', 'Track_R', 20.0), ('BeamMid1', 'Track_R', 10.0),

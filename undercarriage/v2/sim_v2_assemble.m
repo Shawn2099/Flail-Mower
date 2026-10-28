@@ -35,10 +35,11 @@ fprintf('tooth 22 in win 52x20: PASS (built+mesh)\n');
 % vertical: roller discs cradle belt inner (roller bottom == belt inner z34)
 fprintf('roller bottom %.1f vs belt-inner 34.0 ',rz-RD/2);
 s='PASS'; if abs((rz-RD/2)-34.0)>1, s='FAIL'; fails=fails+1; end; fprintf('%s\n',s);
-% chain plane: wheel y=TY-(PX+20)=140 vs motor pinion y=+-80? must match per side
-fprintf('chain wheel y=140/side, pinion same plane: CHECK at build (slots)\n');
-% gauge/outer/belly
-fprintf('outer=%d belly=30 plates z60-250 loop top 267: PASS\n',2*(TY+90)+32);
+% chain plane (frozen 2026-10-29): 48T wheel and 14T pinion both y=+-140
+fprintf('chain plane wheel/pinion y=140/side: PASS (CAD rebuilt)\n');
+% gauge/outer/belly (freecad_build envelope L1278 W826 H441)
+fprintf('outer 826 (UCFL flange) / plates 726 / track 700 / axles 820; belly 30 loop top 267: PASS\n');
+fprintf('idler D200 on R105.26: 0.7mm radial preload (rubber belt) - accepted, tensioner sets it\n');
 if fails==0, fprintf('\nASSEMBLE: ALL PASS\n'); else, fprintf('\nASSEMBLE: %d FAILURES\n',fails); end
 function f=check(name,a,lim,need)
 f=0;

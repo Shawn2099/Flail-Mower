@@ -8,7 +8,7 @@ g=9.81; Mworst=400; W=Mworst*g;
 % --- load tree (from sim_v2, measured/derived) ---
 F_disc_roller=1700;   % N per disc, worst vertical+shockStatic
 F_disc_idler=2000; F_axle_brg=2500;
-M_shaft_roller=32; M_shaft_axle=250;      % Nm bending
+M_shaft_roller=65; M_shaft_axle=250;      % Nm bending (1.7kN x 38mm overhang)
 M_beam=500;                               % Nm envelope (CG500 tilt)
 Pull_chain=1670;                          % N tight-side
 F_bolt=204; Cap_bolt=40464;               % N (28xM12)

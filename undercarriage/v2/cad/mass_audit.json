@@ -1,0 +1,249 @@
+{
+  "title": "UC-V2 as-drawn mass rollup",
+  "density_kg_m3": 7850,
+  "note": "Fab parts measured from STEP; bought parts catalogue/estimate.",
+  "items": [
+    {
+      "part": "side plate 1240x220x6",
+      "qty": 4,
+      "unit_kg": 10.274,
+      "mass_kg": 41.1,
+      "category": "structure",
+      "source": "side_plate.step"
+    },
+    {
+      "part": "roller drum D114.3x40",
+      "qty": 12,
+      "unit_kg": 1.37,
+      "mass_kg": 16.44,
+      "category": "running",
+      "source": "roller_drum.step"
+    },
+    {
+      "part": "idler disc D200x40",
+      "qty": 4,
+      "unit_kg": 5.367,
+      "mass_kg": 21.47,
+      "category": "running",
+      "source": "idler_disc.step"
+    },
+    {
+      "part": "shaft D25x260",
+      "qty": 8,
+      "unit_kg": 1.002,
+      "mass_kg": 8.01,
+      "category": "running",
+      "source": "shaft_D25_L260.step"
+    },
+    {
+      "part": "collar D25",
+      "qty": 16,
+      "unit_kg": 0.071,
+      "mass_kg": 1.14,
+      "category": "running",
+      "source": "collar_D25.step"
+    },
+    {
+      "part": "washer D25/OD50",
+      "qty": 8,
+      "unit_kg": 0.045,
+      "mass_kg": 0.36,
+      "category": "running",
+      "source": "washer_D25_OD50.step"
+    },
+    {
+      "part": "pin D6x40",
+      "qty": 8,
+      "unit_kg": 0.009,
+      "mass_kg": 0.07,
+      "category": "running",
+      "source": "pin_D6_L40.step"
+    },
+    {
+      "part": "side axle D40x300",
+      "qty": 2,
+      "unit_kg": 2.935,
+      "mass_kg": 5.87,
+      "category": "drive",
+      "source": "side_axle.step"
+    },
+    {
+      "part": "collar D40 OD60",
+      "qty": 4,
+      "unit_kg": 0.146,
+      "mass_kg": 0.58,
+      "category": "drive",
+      "source": "collar_D40_OD60.step"
+    },
+    {
+      "part": "sprocket 72z9 8mm",
+      "qty": 4,
+      "unit_kg": 1.521,
+      "mass_kg": 6.08,
+      "category": "drive",
+      "source": "sprocket_72z9.step"
+    },
+    {
+      "part": "hub 76/42 stack",
+      "qty": 2,
+      "unit_kg": 1.133,
+      "mass_kg": 2.27,
+      "category": "drive",
+      "source": "hub76_OD76.step"
+    },
+    {
+      "part": "beam SHS40 L320",
+      "qty": 4,
+      "unit_kg": 1.183,
+      "mass_kg": 4.73,
+      "category": "structure",
+      "source": "beam_SHS40.step"
+    },
+    {
+      "part": "rail SHS40 L300",
+      "qty": 4,
+      "unit_kg": 1.109,
+      "mass_kg": 4.44,
+      "category": "structure",
+      "source": "rail_SHS40_L300.step"
+    },
+    {
+      "part": "flange mid 140x70x8",
+      "qty": 6,
+      "unit_kg": 0.577,
+      "mass_kg": 3.46,
+      "category": "structure",
+      "source": "flange_mid_140x70x8.step"
+    },
+    {
+      "part": "flange front 50x70x8",
+      "qty": 2,
+      "unit_kg": 0.2,
+      "mass_kg": 0.4,
+      "category": "structure",
+      "source": "flange_front_50x70x8.step"
+    },
+    {
+      "part": "deck mount 80x80x20",
+      "qty": 4,
+      "unit_kg": 0.95,
+      "mass_kg": 3.8,
+      "category": "structure",
+      "source": "deck_mount.step"
+    },
+    {
+      "part": "lift lug",
+      "qty": 2,
+      "unit_kg": 0.354,
+      "mass_kg": 0.71,
+      "category": "structure",
+      "source": "lift_lug.step"
+    },
+    {
+      "part": "chain guard 1.5mm",
+      "qty": 2,
+      "unit_kg": 0.593,
+      "mass_kg": 1.19,
+      "category": "drive",
+      "source": "chain_guard.step"
+    },
+    {
+      "part": "tension lug",
+      "qty": 4,
+      "unit_kg": 0.195,
+      "mass_kg": 0.78,
+      "category": "drive",
+      "source": "tension_lug.step"
+    },
+    {
+      "part": "tension rod M12",
+      "qty": 4,
+      "unit_kg": 0.098,
+      "mass_kg": 0.39,
+      "category": "drive",
+      "source": "tension_rod_M12.step"
+    },
+    {
+      "part": "rod eye",
+      "qty": 4,
+      "unit_kg": 0.52,
+      "mass_kg": 2.08,
+      "category": "drive",
+      "source": "rod_eye.step"
+    },
+    {
+      "part": "spacer tube 48x3.2x200",
+      "qty": 4,
+      "unit_kg": 0.71,
+      "mass_kg": 2.84,
+      "category": "structure",
+      "source": "calculated"
+    },
+    {
+      "part": "6205-2RS",
+      "qty": 16,
+      "unit_kg": 0.13,
+      "mass_kg": 2.08,
+      "category": "running",
+      "source": "COTS/catalogue"
+    },
+    {
+      "part": "48T chainwheel (adapted)",
+      "qty": 2,
+      "unit_kg": 1.6,
+      "mass_kg": 3.2,
+      "category": "drive",
+      "source": "COTS/catalogue"
+    },
+    {
+      "part": "UCFL208",
+      "qty": 4,
+      "unit_kg": 2.2,
+      "mass_kg": 8.8,
+      "category": "drive",
+      "source": "COTS/catalogue"
+    },
+    {
+      "part": "motor 1.2 kW + gearbox",
+      "qty": 2,
+      "unit_kg": 9.0,
+      "mass_kg": 18.0,
+      "category": "drive",
+      "source": "COTS/catalogue"
+    },
+    {
+      "part": "428 chain (60L)",
+      "qty": 2,
+      "unit_kg": 0.8,
+      "mass_kg": 1.6,
+      "category": "drive",
+      "source": "COTS/catalogue"
+    },
+    {
+      "part": "track 180x72x37",
+      "qty": 2,
+      "unit_kg": 18.0,
+      "mass_kg": 36.0,
+      "category": "track",
+      "source": "COTS/catalogue"
+    },
+    {
+      "part": "fasteners/paint/misc",
+      "qty": 1,
+      "unit_kg": 2.0,
+      "mass_kg": 2.0,
+      "category": "misc",
+      "source": "COTS/catalogue"
+    }
+  ],
+  "category_kg": {
+    "structure": 61.4,
+    "running": 49.6,
+    "drive": 51.0,
+    "track": 36.0,
+    "misc": 2.0
+  },
+  "total_kg": 199.9,
+  "target_kg": 165,
+  "delta_kg": 34.9
+}
