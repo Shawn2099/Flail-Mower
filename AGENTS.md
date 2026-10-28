@@ -3,7 +3,11 @@
 This is **not a software project**. It is a sim-first mechanical design repo for a
 500 mm tracked flail mower plus its rubber-track undercarriage. MATLAB does the
 engineering sizing; Python does the CAD. There is no build system, test runner,
-package manifest, or git repo.
+or package manifest.
+
+**Git:** the repo is version-controlled on GitHub at `Shawn2099/Flail-Mower` (remote
+`origin`, branch `master`). Build artifacts (`*.stl`, `*.step`, `*.dxf`, `*.FCStd`)
+are gitignored — regenerate them from the `.py` scripts, don't hand-edit.
 
 ## Layout — independent design threads, don't cross-wire them
 
