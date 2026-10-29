@@ -1,6 +1,6 @@
 # ASSEMBLY v2 - plug-and-play order (weak crew, outside welders)
 
-Envelope as drawn: **L1278 x W826 (UCFL) x H441**; mass **199.9 kg** incl tracks + motors.
+Envelope as drawn: **L1278 x W826 (UCFL) x H441**; mass **186.9 kg** incl tracks + motors.
 Tools: tape, caliper, straightedge, 2x dummy dia25x400 bars, spanners, hand drill,
 grinder + flap disc, chain tool, grease. No lathe/mill on site.
 
@@ -13,8 +13,8 @@ grinder + flap disc, chain tool, grease. No lathe/mill on site.
 - Weld: stitch, alternate sides, comb jig clamped. Grind dross/chamfer plasma edges first.
 
 ## Running gear (bench)
-- Discs: weld stack (rings/cheeks + hub), flap-disc high spots, press 6205 + circlip.
-  CHECK: spin by hand, no grind/rock.
+- Drums (v3 simple spool): 2 identical per station. Weld backplate inside pipe, weld 65/52x22 seat to backplate, ream 52 H7, press 6205 (outer in seat, inner on shaft). Loose 42.4x109 spacer between inner races; press drums onto shaft at +/-62; outer collars/washers/pins. No Loctite, no ring stacks.
+  CHECK: spin by hand, no grind/rock; spacer ends butt both inner races.
 - Shafts/axles: cut, face, drill R-clip holes; keys fitted at outsource (mark timed
   positions with punch). Axle keyways at y=142..157 (48T) and 238..282 (72z hub).
 - 48T wheel: tooth plate on y=140 plane, hub 142..157 butts the inner plate; D40 collar
@@ -27,8 +27,8 @@ grinder + flap disc, chain tool, grease. No lathe/mill on site.
 2. Side axles + UCFL208 (loose), 48T wheels + keys; slide axle to centre the 72z pack on
    the track B-gap by eye. CHECK: 3.5/side play (caliper spot); axle end must reach
    y=410 into the 50 mm UCFL bore.
-3. Rollers/idlers + clamp collars (do NOT fully tighten until track on). Shaft ends:
-   D25 collar / washer / R-pin.
+3. Rollers/idlers (v3 spools) + outer collars (do NOT fully tighten until track on). Shaft ends:
+   D25 collar / washer / R-pin. Check spacer/horn clearance (roller 7.5 mm).
 4. Motors + plain 14T (bore+key at outsource), **428 chains 60 links**, guards with vent
    slots. Align by straightedge (pinion plane = wheel plane 140 +/-1), tension via rail
    slots. CHECK: 10-15 mm mid-slack.
@@ -43,7 +43,7 @@ Runtime guide (sim_battery_uc): flat 57 / 250 kg-15 deg 30 / 400 kg-15 deg 23 mi
 48V20Ah; 2P for double.
 
 ## Deck interface (frozen UC side 2026-10-13)
-- 4x M12 pads 80x80x10 on mid beams (x=+/-150, y=+/-100, top z=175), slotted +/-3 + shim
+- 4x M12 pads 80x80x20 on mid beams (x=+/-150, y=+/-100, top z=175), slotted +/-3 + shim
   packs. Deck drills to THESE points (old brief coords superseded).
 - 2x lift lugs at rear tie (x=-370, y=+/-100).
 - Pack bay stays low between tracks (y +/-130, z<200, x -100..+200); motors/rails keep

@@ -6,26 +6,34 @@
     {
       "part": "side plate 1240x220x6",
       "qty": 4,
-      "unit_kg": 10.274,
-      "mass_kg": 41.1,
+      "unit_kg": 10.586,
+      "mass_kg": 42.35,
       "category": "structure",
       "source": "side_plate.step"
     },
     {
-      "part": "roller drum D114.3x40",
+      "part": "roller drum v3 (pipe+backplate+seat)",
       "qty": 12,
-      "unit_kg": 1.37,
-      "mass_kg": 16.44,
+      "unit_kg": 0.948,
+      "mass_kg": 11.37,
       "category": "running",
-      "source": "roller_drum.step"
+      "source": "v3_roller_drum.step"
     },
     {
-      "part": "idler disc D200x40",
+      "part": "idler drum v3 (pipe+backplate+seat)",
       "qty": 4,
-      "unit_kg": 5.367,
-      "mass_kg": 21.47,
+      "unit_kg": 2.347,
+      "mass_kg": 9.39,
       "category": "running",
-      "source": "idler_disc.step"
+      "source": "v3_idler_drum.step"
+    },
+    {
+      "part": "spacer 42.4/35.5x109",
+      "qty": 8,
+      "unit_kg": 0.361,
+      "mass_kg": 2.89,
+      "category": "running",
+      "source": "v3_spacer.step"
     },
     {
       "part": "shaft D25x260",
@@ -228,22 +236,30 @@
       "source": "COTS/catalogue"
     },
     {
+      "part": "M12 nut (tension)",
+      "qty": 8,
+      "unit_kg": 0.022,
+      "mass_kg": 0.18,
+      "category": "misc",
+      "source": "COTS/catalogue"
+    },
+    {
       "part": "fasteners/paint/misc",
       "qty": 1,
-      "unit_kg": 2.0,
-      "mass_kg": 2.0,
+      "unit_kg": 1.82,
+      "mass_kg": 1.82,
       "category": "misc",
       "source": "COTS/catalogue"
     }
   ],
   "category_kg": {
-    "structure": 61.4,
-    "running": 49.6,
+    "structure": 62.7,
+    "running": 35.4,
     "drive": 51.0,
     "track": 36.0,
     "misc": 2.0
   },
-  "total_kg": 199.9,
+  "total_kg": 186.9,
   "target_kg": 165,
-  "delta_kg": 34.9
+  "delta_kg": 21.9
 }

@@ -16,7 +16,10 @@ plt.rcParams["font.family"] = "DejaVu Sans"
 
 W, H = 420.0, 297.0
 LW = {"out": 1.5, "thin": 0.7, "hid": 0.7, "dim": 0.55, "cen": 0.55}
-FS = 8.0
+STYLE = {"out": ("-", 1.5), "thin": ("-", 0.7),
+         "hid": ((0, (4, 2)), 0.7),
+         "dim": ("-", 0.55), "cen": ((0, (10, 2, 2, 2)), 0.55)}
+FS = 11.0
 
 
 def _unit(p, q):
@@ -31,7 +34,7 @@ class View:
         self.ax = sheet.ax
         if label:
             x, y = label_at if label_at else (ox, oy - 12)
-            self.ax.text(x, y, label, fontsize=FS + 1, weight="bold",
+            self.ax.text(x, y, label, fontsize=FS + 2, weight="bold",
                          ha="left", va="top")
 
     def P(self, x, y):
@@ -39,26 +42,29 @@ class View:
 
     def line(self, x1, y1, x2, y2, style="out", color="k", z=2):
         p, q = self.P(x1, y1), self.P(x2, y2)
+        ls, lw = STYLE[style]
         self.ax.plot([p[0], q[0]], [p[1], q[1]], color=color,
-                     lw=LW[style], solid_capstyle="round", zorder=z)
+                     lw=lw, ls=ls, solid_capstyle="round", zorder=z)
 
     def poly(self, pts, close=False, style="out", color="k", z=2, fill=None,
              hatch=None):
         xy = [self.P(x, y) for x, y in pts]
         if close:
             xy = xy + [xy[0]]
+        ls, lw = STYLE[style]
         if fill is not None or hatch:
             self.ax.add_patch(Polygon(xy, closed=close, facecolor=fill or "none",
-                                      edgecolor=color, lw=LW[style], hatch=hatch,
+                                      edgecolor=color, lw=lw, ls=ls, hatch=hatch,
                                       zorder=z))
         else:
             xs, ys = zip(*xy)
-            self.ax.plot(xs, ys, color=color, lw=LW[style], zorder=z)
+            self.ax.plot(xs, ys, color=color, lw=lw, ls=ls, zorder=z)
 
     def circle(self, cx, cy, r, style="out", color="k", z=2, fill=None):
         c = self.P(cx, cy)
+        ls, lw = STYLE[style]
         self.ax.add_patch(Circle(c, r * self.s, facecolor=fill or "none",
-                                 edgecolor=color, lw=LW[style], zorder=z))
+                                 edgecolor=color, lw=lw, ls=ls, zorder=z))
 
     def rect(self, x, y, w, h, style="out", color="k", z=2, hatch=None,
              fill=None):
@@ -148,7 +154,8 @@ class View:
         if arrow:
             self._arrow(self.P(px, py), _unit((tx, ty), (px, py)))
         X, Y = self.P(tx, ty)
-        self.ax.text(X, Y, text, fontsize=FS, ha=ha, va="center", zorder=8)
+        self.ax.text(X, Y, text, fontsize=FS, ha=ha, va="center", zorder=8,
+                     bbox=dict(fc="white", ec="none", pad=0.3))
 
     def dia(self, cx, cy, r, text, ang=45, ext=8):
         ext = ext / self.s
@@ -165,8 +172,9 @@ class View:
         self.line(px, py, tx, ty, "dim")
         self._arrow(self.P(px, py), _unit((tx, ty), (px, py)))
         X, Y = self.P(tx, ty)
-        self.ax.add_patch(Circle((X, Y), 4.2, fc="white", ec="k", lw=0.8, zorder=8))
-        self.ax.text(X, Y, str(num), fontsize=FS, ha="center", va="center",
+        self.ax.add_patch(Circle((X, Y), 7.8, fc="white", ec="k", lw=1.1,
+                                 zorder=8))
+        self.ax.text(X, Y, str(num), fontsize=14, ha="center", va="center",
                      weight="bold", zorder=9)
 
     def hatch_rect(self, x, y, w, h, angle="///"):
@@ -228,9 +236,9 @@ class Sheet:
                               ls=(0, (12, 3, 2, 3))))
         # zones
         for i, x in enumerate(range(10, 411, 50)):
-            a.text(x + 25, 289, str(i + 1), fontsize=6, ha="center", va="center")
+            a.text(x + 25, 289, str(i + 1), fontsize=7, ha="center", va="center")
         for i, y in enumerate(range(10, 288, 50)):
-            a.text(5, y + 25, chr(65 + i), fontsize=6, ha="center", va="center")
+            a.text(5, y + 25, chr(65 + i), fontsize=7, ha="center", va="center")
 
     def title_block(self, idx, total, scale, material, qty, mass, rev, subtitle):
         a = self.ax
@@ -241,30 +249,33 @@ class Sheet:
         a.plot([x0 + 115, x0 + 115], [y0 + 16, y0 + 48], color="k", lw=0.8)
         a.plot([x0 + 60, x0 + 60], [y0, y0 + 16], color="k", lw=0.8)
         a.plot([x0 + 140, x0 + 140], [y0, y0 + 16], color="k", lw=0.8)
-        a.text(x0 + 3, y0 + 43, "FLAIL MOWER 500  /  UC-V2", fontsize=7,
+        a.text(x0 + 3, y0 + 43, "FLAIL MOWER 500  /  UC-V2", fontsize=7.5,
                weight="bold", va="center")
-        a.text(x0 + 3, y0 + 36, self.title, fontsize=10, weight="bold", va="center")
+        a.text(x0 + 3, y0 + 36, self.title, fontsize=12, weight="bold", va="center")
         if subtitle:
-            a.text(x0 + 3, y0 + 32.5, subtitle, fontsize=6.2, va="center")
-        a.text(x0 + 118, y0 + 43, "DWG No.", fontsize=5.5, va="center")
-        a.text(x0 + 118, y0 + 38, self.no, fontsize=11, weight="bold", va="center")
-        a.text(x0 + 118, y0 + 33, f"REV {rev}", fontsize=6.5, va="center")
+            a.text(x0 + 3, y0 + 32.5, subtitle, fontsize=7, va="center")
+        a.text(x0 + 118, y0 + 43, "DWG No.", fontsize=6, va="center")
+        a.text(x0 + 118, y0 + 38, self.no, fontsize=12.5, weight="bold", va="center")
+        a.text(x0 + 118, y0 + 33, f"REV {rev}", fontsize=7, va="center")
+        a.text(x0 + 118, y0 + 24, "UNITS: mm", fontsize=7.8, weight="bold",
+               va="center")
+        a.text(x0 + 118, y0 + 18.5, "1st ANGLE", fontsize=7.0, va="center")
         # row 2
-        a.text(x0 + 3, y0 + 24, "MATERIAL", fontsize=5, va="center")
-        a.text(x0 + 3, y0 + 19.5, material, fontsize=7, va="center")
-        a.text(x0 + 63, y0 + 24, "QTY / MASS", fontsize=5, va="center")
-        a.text(x0 + 63, y0 + 19.5, f"{qty}   /   {mass}", fontsize=7, va="center")
+        a.text(x0 + 3, y0 + 24, "MATERIAL", fontsize=6, va="center")
+        a.text(x0 + 3, y0 + 19.5, material, fontsize=9.0, va="center")
+        a.text(x0 + 63, y0 + 24, "QTY / MASS", fontsize=6, va="center")
+        a.text(x0 + 63, y0 + 19.5, f"{qty}   /   {mass}", fontsize=9.0, va="center")
         # row 3
-        a.text(x0 + 3, y0 + 10, "SCALE", fontsize=5, va="center")
-        a.text(x0 + 3, y0 + 5, scale, fontsize=7, va="center")
-        a.text(x0 + 63, y0 + 10, "SIZE", fontsize=5, va="center")
-        a.text(x0 + 63, y0 + 5, "A3", fontsize=7, va="center")
-        a.text(x0 + 78, y0 + 10, "SHEET", fontsize=5, va="center")
-        a.text(x0 + 78, y0 + 5, f"{idx} / {total}", fontsize=7, va="center")
-        a.text(x0 + 143, y0 + 10, "DATE", fontsize=5, va="center")
-        a.text(x0 + 143, y0 + 5, "2026-10-29", fontsize=7, va="center")
-        a.text(x0 + 170, y0 + 10, "DRAWN", fontsize=5, va="center")
-        a.text(x0 + 170, y0 + 5, "OC", fontsize=7, va="center")
+        a.text(x0 + 3, y0 + 10, "SCALE", fontsize=6, va="center")
+        a.text(x0 + 3, y0 + 5, scale, fontsize=8, va="center")
+        a.text(x0 + 63, y0 + 10, "SIZE", fontsize=6, va="center")
+        a.text(x0 + 63, y0 + 5, "A3", fontsize=8, va="center")
+        a.text(x0 + 78, y0 + 10, "SHEET", fontsize=6, va="center")
+        a.text(x0 + 78, y0 + 5, f"{idx} / {total}", fontsize=8, va="center")
+        a.text(x0 + 143, y0 + 10, "DATE", fontsize=6, va="center")
+        a.text(x0 + 143, y0 + 5, "2026-10-29", fontsize=8, va="center")
+        a.text(x0 + 170, y0 + 10, "DRAWN", fontsize=6, va="center")
+        a.text(x0 + 170, y0 + 5, "OC", fontsize=8, va="center")
         # projection symbol (first angle)
         cx, cy = x0 + 178, y0 + 40
         a.add_patch(Circle((cx, cy), 3.2, fill=False, ec="k", lw=0.6))
@@ -278,11 +289,11 @@ class Sheet:
         a = self.ax
         x0, y0, w = 12, 10, 204
         n = len(self.notes)
-        h = 8 + 4.3 * n
+        h = 9 + 5.6 * n
         a.add_patch(Rectangle((x0, y0), w, h, fill=False, ec="k", lw=0.8))
-        a.text(x0 + 2, y0 + h - 5, "NOTES", fontsize=6, weight="bold", va="center")
+        a.text(x0 + 2, y0 + h - 5, "NOTES", fontsize=8, weight="bold", va="center")
         for i, s in enumerate(self.notes):
-            a.text(x0 + 2, y0 + h - 10 - 4.3 * i, s, fontsize=6.4, va="center")
+            a.text(x0 + 2, y0 + h - 11 - 5.6 * i, s, fontsize=8.8, va="center")
 
     def section_line(self, p1, p2, label, view_dir=1):
         """Section cut line with arrows; p1/p2 model points."""
@@ -300,8 +311,49 @@ class Sheet:
     def _P(self, p):
         return p if len(p) == 2 and p[0] > 10 else p
 
+    def report_overlaps(self):
+        """Print text-text overlaps and text outside the border (review aid)."""
+        self.fig.canvas.draw()
+        r = self.fig.canvas.get_renderer()
+        inv = self.ax.transData.inverted()
+        items = []
+        for t in self.ax.texts:
+            s = t.get_text().strip()
+            if not s:
+                continue
+            try:
+                bb = t.get_window_extent(r).transformed(inv)
+            except Exception:
+                continue
+            items.append((bb, s))
+        for bb, s in items:
+            if len(s) == 1 and (s in "ABCDEF" or s.isdigit()):
+                continue
+            if bb.x0 < 10.2 or bb.x1 > 409.8 or bb.y0 < 10.2 or bb.y1 > 286.8:
+                print(f"CLIP {self.no}: {s!r} "
+                      f"[{bb.x0:.1f},{bb.y0:.1f},{bb.x1:.1f},{bb.y1:.1f}]")
+        n = 0
+        for i in range(len(items)):
+            for j in range(i + 1, len(items)):
+                a, sa = items[i]
+                b, sb = items[j]
+                w = min(a.x1, b.x1) - max(a.x0, b.x0)
+                h = min(a.y1, b.y1) - max(a.y0, b.y0)
+                if w <= 0 or h <= 0:
+                    continue
+                inter = w * h
+                small = min((a.x1 - a.x0) * (a.y1 - a.y0),
+                            (b.x1 - b.x0) * (b.y1 - b.y0))
+                if inter > 2.0 and inter / max(small, 1e-6) > 0.12:
+                    print(f"OVERLAP {self.no}: {sa!r} <> {sb!r} "
+                          f"({inter:.1f} mm2)")
+                    n += 1
+        if n:
+            print(f"  {n} text overlaps on {self.no}")
+
     def save(self, path_base):
+        self.report_overlaps()
         path_base = str(path_base)
         self.fig.savefig(path_base + ".pdf", format="pdf")
-        self.fig.savefig(path_base + ".png", dpi=110)
+        self.fig.savefig(path_base + ".png", dpi=170)
         plt.close(self.fig)

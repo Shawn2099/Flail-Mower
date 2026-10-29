@@ -1,25 +1,28 @@
 # UC-V2 DRAWING PACK (2026-10-29)
 
 14 x A3 landscape sheets, third-angle projection, dimensions in mm.
-Combined bookmarked PDF: **`UCV2_DRAWING_PACK.pdf`**.
-Each sheet also exists as `UCV2-*.pdf` + a PNG preview.
+Each sheet exists as `UCV2-*.pdf` + a **170 dpi PNG**.
+**Review page:** open `review.html` to scroll every sheet at full resolution.
+No combined PDF is generated until the PNG review is signed off.
 
 | Sheet | Title | Scale |
 |---|---|---|
 | UCV2-GA-001 | General arrangement - side elevation | 1:4 |
 | UCV2-GA-002 | General arrangement - plan & end view | 1:7 |
-| UCV2-GA-003 | Section A-A - roller station | 1:1.5 |
+| UCV2-GA-003 | Section A-A - roller station (v3 simple spool) | NTS |
 | UCV2-GA-004 | Section B-B - drive station | 1:1.5 |
 | UCV2-P-001 | Side plate - flat pattern + hole table | 1:4 |
-| UCV2-P-002 | Roller drum D114.3 - assembly | 1:1 |
-| UCV2-P-003 | Idler disc D200 - assembly (5 rings + web) | 1:1.5 |
+| UCV2-P-002 | Roller station v3 - simple spool | NTS |
+| UCV2-P-003 | Idler station v3 - simple spool | NTS |
 | UCV2-P-004 | Shaft D25x260 & axle D40x300 | 1:2 |
 | UCV2-P-005 | Sprocket 72z9 & hub 76/42 | 1:2 / 1:1 |
 | UCV2-P-006 | Chain drive 14T/48T & guard | 1:2 |
 | UCV2-P-007 | Frame sections, flanges & bolt schedule | 1:1 / 1:2 |
 | UCV2-P-008 | Deck interface & lift lugs | 1:1 / 1:10 |
 | UCV2-P-009 | Tensioner & small parts | 1:1 |
-| UCV2-P-010 | Parts list / BOM (as drawn, 199.9 kg) | - |
+| UCV2-P-010 | Parts list / BOM (as drawn, 186.9 kg) | - |
+
+**P-002 / P-003 / GA-003** are v3 review sheets: NTS, all dimensions/parts called out. The rest are vector A3. Vectorise the three after sign-off.
 
 ## What the drawings are built from
 
@@ -35,8 +38,9 @@ Regenerate geometry first, then the drawings:
 python ../cad/build_v2_axle.py        # axle L300 + D40 collars
 python ../cad/build_v2_idler.py       # idler web + 5-ring disc + DXF
 python ../cad/mass_audit.py           # mass_audit.json + MASS.md
+python ../cad/build_v3_simple.py      # v3 spool STEP/STL + section PNGs
 python gen_drawings.py                # all 14 sheets
-python make_pack.py                   # combined bookmarked PDF
+# python make_pack.py                 # ONLY after PNG sign-off; no combined PDF yet
 ```
 
 (FDXF/STEP are gitignored; the scripts above regenerate them.)

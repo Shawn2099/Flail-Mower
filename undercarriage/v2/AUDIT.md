@@ -7,14 +7,18 @@ drawings-to-be. Frozen sizes (6 mm plate, 8 mm sprocket, SHS40) were not changed
 ## Verdict
 
 **Structure and sizing pass.** All sim gates print PASS after the corrections below.
-The as-drawn machine is **199.9 kg** incl tracks + motors, **L1278 x W826 x H441**.
+The as-drawn machine is **186.9 kg** incl tracks + motors (v3 simple spool; 201.1 kg before the roller/idler change), **L1278 x W826 x H441**.
 The old "~165 kg / 732 wide" figures were paper estimates and are superseded.
+
+**V3 update (2026-10-29 later):** rollers and idlers replaced with the simple spool
+(pipe + backplate + welded 65/52 seat + loose spacer; no Loctite/ring stacks).
+Mass **186.9 kg**. P-002/P-003/GA-003 are superseded by the v3 sheets.
 
 ## Sim results (re-run 2026-10-29)
 
 | Sim | Result |
 |---|---|
-| sim_v2 | ALL PASS; mass 199.9 kg <= 205 ceiling (target 165 missed +34.9) |
+| sim_v2 | ALL PASS; mass 186.9 kg <= 205 ceiling (target 165 missed +21.9) |
 | sim_v2_margins | closest member beam bend 0.76; plates 0.06-0.47 |
 | sim_v2_assemble | ALL PASS; chain plane 140; 826 overall |
 | sim_v2_turn | flat pivot 250 kg PASS; 400 kg mu0.6 flat REVIEW; never pivot on slopes |
@@ -37,7 +41,7 @@ The old "~165 kg / 732 wide" figures were paper estimates and are superseded.
 | 5 | Chain plane 3-5 mm out; L/R wheels differed 4 mm | wheel 140, pinion 137; L wheel -144 | both **140**; L-side base corrected; pinion base 143/-137 |
 | 6 | Docs said overall 732; CAD is 826 | FreeCAD envelope W826 (UCFL 363..413) | docs/BOM/json updated: 826 UCFL, 726 plates, 700 track, 820 axles |
 | 7 | Docs had no height/length | envelope L1278 H441 | added |
-| 8 | Mass rollup 205 kg from hand constants | STEP-measured parts | **199.9 kg** via `cad/mass_audit.py` -> `mass_audit.json`; sim reads it |
+| 8 | Mass rollup 205 kg from hand constants | STEP-measured parts | **201.1 kg** via `cad/mass_audit.py` -> `mass_audit.json`; sim reads it |
 | 9 | BOM shafts "2 m, L220" could not reach collars at 375 | shaft L260 needed (130..390) | **2.2 m, 8 x L260** |
 | 10 | BOM chain "58L" too short for C=168.7 | 60 pitches needed; 60L at C=170.15 | **60 links** |
 | 11 | ASSEMBLY said "8xM12 ea" (16) vs BOM 28 | 4 mid joints x4 + 2 rear x4 + 2 front x2 | **28 total (14/side)** |

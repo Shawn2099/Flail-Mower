@@ -1,4 +1,8 @@
 % V2_ROLLER_TRADE  roller construction x material trade. Least work + least cost wins.
+% SUPERSEDED 2026-10-29 by the v3 simple spool: pipe + backplate + welded 65/52
+% seat + loose 42.4x109 spacer; no Loctite, no ring stacks. See build_v3_simple.py.
+% The trade below is kept as history; its 50NB/6205 centre tube clashes with
+% the 28.5mm track horns, which is why the v3 uses the shaft as the spacer.
 % Frozen: paired discs/ station, D114.3 x w40, radial 1700N/disc, shaft D25, 1x6205/disc.
 % Candidates: (A) fab spool MS-ERW pipe + 2 laser cheeks + Loctite hub [current]
 % (B) fab spool with thinner pipe wall (3.6)  (C) COTS conveyor roller D114

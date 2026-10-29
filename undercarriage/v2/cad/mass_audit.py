@@ -16,8 +16,9 @@ RHO = 7850e-9  # kg/mm3
 # part key -> (step file, qty, category)
 FAB = {
     "side plate 1240x220x6": ("side_plate.step", 4, "structure"),
-    "roller drum D114.3x40": ("roller_drum.step", 12, "running"),
-    "idler disc D200x40": ("idler_disc.step", 4, "running"),
+    "roller drum v3 (pipe+backplate+seat)": ("v3_roller_drum.step", 12, "running"),
+    "idler drum v3 (pipe+backplate+seat)": ("v3_idler_drum.step", 4, "running"),
+    "spacer 42.4/35.5x109": ("v3_spacer.step", 8, "running"),
     "shaft D25x260": ("shaft_D25_L260.step", 8, "running"),
     "collar D25": ("collar_D25.step", 16, "running"),
     "washer D25/OD50": ("washer_D25_OD50.step", 8, "running"),
@@ -46,7 +47,8 @@ COTS = {
     "motor 1.2 kW + gearbox": (2, 9.00, "drive"),
     "428 chain (60L)": (2, 0.80, "drive"),
     "track 180x72x37": (2, 18.00, "track"),
-    "fasteners/paint/misc": (1, 2.00, "misc"),
+    "M12 nut (tension)": (8, 0.022, "misc"),
+    "fasteners/paint/misc": (1, 1.82, "misc"),
 }
 
 items = []

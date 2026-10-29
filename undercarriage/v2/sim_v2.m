@@ -37,14 +37,14 @@ for i=1:2
 sigb=1700/(0.025*0.006)/1e6;
 if sigb<200, s='PASS'; else, s='FAIL'; fails=fails+1; end
 fprintf('plate seat bearing=%.0fMPa (6mm common sheet, want<200) %s\n',sigb,s);
-% hollow drum weld: cheek fillet 3mm throat, shear from 1.7kN belt pull
-tau=1700/(2*pi*0.057*0.7*0.003)/1e6;
-if tau<110, s='PASS'; else, s='FAIL'; fails=fails+1; end
-fprintf('drum cheek weld tau=%.0fMPa %s\n',tau,s);
-% idler ring stack weld: 4 seams, 2kN
-tau2=2000/(4*pi*0.175*0.7*0.003)/1e6;
-if tau2<110, s='PASS'; else, s='FAIL'; fails=fails+1; end
-fprintf('idler ring weld tau=%.0fMPa %s\n',tau2,s);
+% v3 spool welds: backplate-to-pipe and seat-to-backplate, 3mm throat
+tau=1700/(pi*0.1053*0.7*0.003)/1e6;         % roller backplate @ belt load
+tau_seat=1700/(pi*0.065*0.7*0.003)/1e6;     % roller seat @ bearing load
+tau2=2000/(pi*0.190*0.7*0.003)/1e6;         % idler backplate
+tau2_seat=2000/(pi*0.065*0.7*0.003)/1e6;    % idler seat
+if max([tau tau_seat tau2 tau2_seat])<110, s='PASS'; else, s='FAIL'; fails=fails+1; end
+fprintf('v3 welds: roll backplate %.0f / seat %.0f; idler backplate %.0f / seat %.0f MPa %s\n',...
+  tau,tau_seat,tau2,tau2_seat,s);
 % bearings single/disc: roller 1.7kN worst, axle flange 2.5kN worst
 for i=1:2
   if i==1, C=14.8; F=1.7; n='6205x1'; else, C=29.6; F=2.5; n='UCFL208'; end

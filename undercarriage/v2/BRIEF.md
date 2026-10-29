@@ -1,6 +1,8 @@
 # V2 OPTIMIZE — max weight loss + easiest MFD/COTS (400kg worst, 20° max, 1.2kW/side)
 
-> **2026-10-29 audit (as-built):** 199.9 kg incl tracks + motors, not ~165 kg. The 165
+> **2026-10-29 v3 update:** roller/idler replaced with the simple pipe+backplate+seat spool (no Loctite, no ring stacks). As-drawn mass is now **186.9 kg**; see MASS.md and 3_review.html.
+
+> **2026-10-29 audit (as-built):** 201.1 kg incl tracks + motors, not ~165 kg. The 165
 > estimate undercounted shafts/collars/idlers and assumed 5 mm plates + SHS32, which the
 > trim study rejected for shop tolerance. Frozen build stays **6 mm plates / 8 mm
 > sprockets / SHS40 (6-8-40)**. Corrections: axle L300 (was L240, only 17 mm in the UCFL

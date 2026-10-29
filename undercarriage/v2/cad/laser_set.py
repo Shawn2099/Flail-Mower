@@ -27,11 +27,29 @@ def rect_holes(name, sx, sy, holes, note):
         for x, y, d in holes: circle(f, x, y, d/2)
         dxf_close(f, note)
 
-ring("cheek_OD114_ID65_6mm", 114.3, 65, 6, "ROLLER CHEEK x24")
+ring("backplate_roller_OD1053_ID65_6mm", 105.3, 65, 6,
+     "ROLLER BACKPLATE x12 - weld inside 100NB pipe")
+ring("backplate_idler_OD190_ID65_6mm", 190.0, 65, 6,
+     "IDLER BACKPLATE x4 - weld inside 200 OD tube")
+ring("cheek_OD114_ID65_6mm", 114.3, 65, 6, "ROLLER CHEEK x24 (old v2)")
 ring("ring_D200_ID150_8mm", 200, 150, 8, "IDLER RING x20")
 ring("hub76_ID42_8mm", 76, 42, 8, "SPROCKET HUB RING x12 (stack 44 + keyway at outsource)", notch=(12, 8))
 ring("hub65_ID52_8mm", 65, 52, 8, "DISC HUB RING (5/disc, Loctite 638)")
 rect_holes("flange_mid_140x70_8mm", 140, 70, [(-50,-15,14),(50,-15,14),(-50,15,14),(50,15,14)], "FLANGE x6 - MID+REAR 4xD14 (weld to SHS40 end, bolt M12x4)")
 rect_holes("flange_front_50x70_8mm", 50, 70, [(0,-15,14),(0,15,14)], "FLANGE-FRONT x2 - 2xD14 (weld to SHS40 end, bolt M12x2)")
-rect_holes("guard_flat_1p5mm", 140, 270, [], "CHAIN GUARD x2 - BEND PER SKETCH (DXF STAGE)")
+# guard: 140 x 270 flat, 3 vent slots 80 x 8 (rounded ends)
+with open(root / "guard_flat_1p5mm.dxf", "w") as f:
+    dxf_open(f)
+    sx, sy = 140, 270
+    x0, y0 = -sx / 2, -sy / 2
+    for a, b in [((x0, y0), (x0 + sx, y0)), ((x0 + sx, y0), (x0 + sx, y0 + sy)),
+                 ((x0 + sx, y0 + sy), (x0, y0 + sy)), ((x0, y0 + sy), (x0, y0))]:
+        line(f, a[0], a[1], b[0], b[1])
+    for cy in (-60, 0, 60):
+        r = 4
+        line(f, -40, cy - r, 40, cy - r)
+        line(f, -40, cy + r, 40, cy + r)
+        f.write(f"0\nARC\n8\n0\n10\n-40.00\n20\n{cy:.2f}\n30\n0.0\n40\n4.00\n50\n90.0\n51\n270.0\n")
+        f.write(f"0\nARC\n8\n0\n10\n40.00\n20\n{cy:.2f}\n30\n0.0\n40\n4.00\n50\n270.0\n51\n90.0\n")
+    dxf_close(f, "CHAIN GUARD x2 - 140x270x1.5 - 3 VENT SLOTS 80x8 - BEND AT FIT-UP")
 print("laser set done")

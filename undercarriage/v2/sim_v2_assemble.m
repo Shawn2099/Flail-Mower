@@ -24,6 +24,15 @@ plI=[TY-PX-3 TY-PX+3]; plO=[TY+PX-3 TY+PX+3];
 fails=fails+ck('plate-in vs belt',plI,belt,5);
 fails=fails+ck('plate-out vs belt',plO,belt,5);
 fails=fails+ck('plate vs horns',plI,horn,8);
+% plate: UCFL slots 23..63 / 143..183 vs D45 axle bore at 103.3 (r22.5)
+g1=(103.3-22.5)-63; g2=143-(103.3+22.5);
+fprintf('UCFL slot-axle gap %.1f / %.1f (need>=5) ',g1,g2);
+s='PASS'; if min(g1,g2)<5, s='FAIL'; fails=fails+1; end; fprintf('%s\n',s);
+% v3 spool: 42.4 OD spacer vs track horn tip (34+28.5)
+gsp_r=(rz-21.2)-(34+28.5);
+gsp_i=(cz-21.2)-(34+28.5);
+fprintf('v3 spacer-horn roller %.1f / idler %.1f (need>=3) ',gsp_r,gsp_i);
+s='PASS'; if min(gsp_r,gsp_i)<3, s='FAIL'; fails=fails+1; end; fprintf('%s\n',s);
 % along-track gaps (edge to edge)
 rg=(RX(1)-RD/2)-(GX+SPR/2); fg=(FX-ID/2)-(RX(3)+RD/2);
 fprintf('roller-sprocket %.1f (need>=25) ',rg); s='PASS'; if rg<25, s='FAIL'; fails=fails+1; end; fprintf('%s\n',s);

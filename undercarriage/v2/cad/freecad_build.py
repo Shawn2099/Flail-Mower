@@ -23,7 +23,9 @@ for o in list(doc.Objects):
     doc.removeObject(o.Name)
 
 M = {}
-for k, f in [('lam', 'sprocket_72z9.step'), ('drum', 'roller_drum.step'),
+for k, f in [('lam', 'sprocket_72z9.step'),
+             ('vrd', 'v3_roller_drum.step'), ('vid', 'v3_idler_drum.step'),
+             ('vsp', 'v3_spacer.step'), ('drum', 'roller_drum.step'),
              ('ring', 'idler_ring.step'), ('iweb', 'idler_web.step'),
              ('shaft', 'shaft_D25_L260.step'),
              ('axle', 'side_axle.step'), ('w48', 'chainwheel_48Tref.step'),
@@ -81,11 +83,17 @@ for y, t in ((260, 'R'), (-260, 'L')):
     # plates outboard, butt faces: R 157..163/357..363 (base 163/363); L mirrored
     PL.append(('plate', 'Plate%s_in' % t, 0, 163 if y > 0 else -157, 30, 90, 0))
     PL.append(('plate', 'Plate%s_out' % t, 0, 363 if y > 0 else -357, 30, 90, 0))
+    s = 1 if y > 0 else -1
     for rx in (-300, 0, 300):
-        for doff, inn in ((-62, 'in'), (62, 'out')):
-            Yc = y + doff
-            PL.append(('drum', 'Dru%s%d%s' % (t, rx, inn), rx, Yc + 20, 91.2, 90, 0))
-            PL.append(('brg', 'Brg%s%d%s' % (t, rx, inn), rx, Yc + 7.5, 91.2, 90, 0))
+        # v3 simple spool: two identical drums, backplate+seat at the inner end
+        for base, rot, inn in ((y - s * 42, s * 90, 'in'),
+                               (y + s * 42, -s * 90, 'out')):
+            PL.append(('vrd', 'Dru%s%d%s' % (t, rx, inn), rx, base,
+                       91.2, rot, 0))
+            C = y - s * 62 if inn == 'in' else y + s * 62
+            PL.append(('brg', 'Brg%s%d%s' % (t, rx, inn), rx, C + 7.5,
+                       91.2, 90, 0))
+        PL.append(('vsp', 'Spacer%s%d' % (t, rx), rx, y, 91.2, 90, 0))
         PL.append(('shaft', 'Shaft%s%d' % (t, rx), rx, y, 91.2, 90, 0))
         # collars butt plate outer faces: R spans 145..157/363..375 (base 157/375)
         PL.append(('col', 'Col%s%d_o' % (t, rx), rx, 375 if y > 0 else -363, 91.2, 90, 0))
@@ -102,14 +110,15 @@ for y, t in ((260, 'R'), (-260, 'L')):
     PL.append(('col40', 'ColAxleW%s' % t, -500.6, 132 if y > 0 else -132, 133.3, 90, 0))
     PL.append(('col40', 'ColAxleH%s' % t, -500.6, 288 if y > 0 else -288, 133.3, 90, 0))
     PL.append(('ucfl', 'Ucf%s' % t, -500.6, 363 if y > 0 else -363, 133.3, -90 if y > 0 else 90, 0))
-    for doff, inn in ((-62, 'in'), (62, 'out')):
-        Yc = y + doff
-        # 5 tread rings = 40 wide + central web inside the bore (audit fix)
-        for k in range(5):
-            PL.append(('ring', 'Idl%s%s%d' % (t, inn, k), 500.6, Yc + 20 - k * 8, 133.3, 90, 0))
-        PL.append(('iweb', 'IdlWeb%s%s' % (t, inn), 500.6, Yc, 133.3, 90, 0))
-        PL.append(('hub65', 'IdlHub%s%s' % (t, inn), 500.6, Yc + 20, 133.3, 90, 0))
-        PL.append(('brg', 'IdlBrg%s%s' % (t, inn), 500.6, Yc + 7.5, 133.3, 90, 0))
+    # v3 idler: two identical 200 mm pipe drums + backplate/seat + spacer
+    s = 1 if y > 0 else -1
+    for base, rot, inn in ((y - s * 42, s * 90, 'in'),
+                           (y + s * 42, -s * 90, 'out')):
+        PL.append(('vid', 'Idl%s%s' % (t, inn), 500.6, base, 133.3, rot, 0))
+        C = y - s * 62 if inn == 'in' else y + s * 62
+        PL.append(('brg', 'IdlBrg%s%s' % (t, inn), 500.6, C + 7.5,
+                   133.3, 90, 0))
+    PL.append(('vsp', 'IdlSpacer%s' % t, 500.6, y, 133.3, 90, 0))
     PL.append(('shaft', 'IdlShaft%s' % t, 500.6, y, 133.3, 90, 0))
     PL.append(('col', 'ColIdl%s_o' % t, 500.6, 375 if y > 0 else -363, 133.3, 90, 0))
     PL.append(('col', 'ColIdl%s_i' % t, 500.6, 157 if y > 0 else -145, 133.3, 90, 0))

@@ -34,10 +34,14 @@ names{end+1}='beam shear'; Facts(end+1)=2500/(2*0.04*0.0032)/1e6; Utils(end+1)=F
 names{end+1}='bolt M12 (28x)'; Facts(end+1)=Fb2allow(); Utils(end+1)=Facts(end)/40464;
 % 8 flange 8mm prying bend (140x70, 4xM12, moment 81Nm/14 bolts per side pair)
 names{end+1}='flange 8mm bend'; Facts(end+1)=(81/14/0.05)/(0.14*0.008^2/6)/1e6; Utils(end+1)=Facts(end)/150;
-% 9 drum cheek weld
-names{end+1}='drum cheek weld'; Facts(end+1)=1700/(2*pi*0.057*0.7*0.003)/1e6; Utils(end+1)=Facts(end)/110;
-% 10 idler ring weld
-names{end+1}='idler ring weld'; Facts(end+1)=2000/(4*pi*0.175*0.7*0.003)/1e6; Utils(end+1)=Facts(end)/110;
+% 9 v3 roller backplate weld
+names{end+1}='roll backplate weld'; Facts(end+1)=1700/(pi*0.1053*0.7*0.003)/1e6; Utils(end+1)=Facts(end)/110;
+% 10 v3 roller seat weld
+names{end+1}='roll seat weld'; Facts(end+1)=1700/(pi*0.065*0.7*0.003)/1e6; Utils(end+1)=Facts(end)/110;
+% 11 v3 idler backplate weld
+names{end+1}='idler backplate weld'; Facts(end+1)=2000/(pi*0.190*0.7*0.003)/1e6; Utils(end+1)=Facts(end)/110;
+% 12 v3 idler seat weld
+names{end+1}='idler seat weld'; Facts(end+1)=2000/(pi*0.065*0.7*0.003)/1e6; Utils(end+1)=Facts(end)/110;
 % 11 brg 6205 util (inverse L10: use 300Mrev min -> util=(300/L10)^(1/3))
 names{end+1}='brg 6205'; Facts(end+1)=(14.8/1.7)^3; Utils(end+1)=(300/Facts(end))^(1/3);
 % 12 brg UCFL208

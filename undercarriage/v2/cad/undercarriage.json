@@ -9,8 +9,8 @@
     "closure": 0.0
   },
   "running_gear": {
-    "bottom_rollers": "3 stations x 2 discs D114.3x40 at +-62 + dia25.0 shafts L260",
-    "idler": "2 discs D200.0x40 at +-62 + dia25.0 shaft L260 in sliders",
+    "bottom_rollers": "3 stations x 2 identical drums D114.3x40 (pipe+backplate+welded 65/52 seat, 6205) at +-62 + dia25.0 shafts L260 + loose 42.4x109 spacer",
+    "idler": "2 stations x 2 identical drums D200x40 (pipe+backplate+welded 65/52 seat, 6205) at +-62 + dia25.0 shaft L260 in sliders + loose 42.4x109 spacer",
     "tension": "screw-slider travel 50.0, sag start 20.0",
     "collars": "D25 collar OD40 x16; D40 collar OD60 x4 (48T wheel + 72z hub stops)"
   },
@@ -46,9 +46,9 @@
     "chain": "G=3.43 14T->48T 428 (v2 400kg/20deg); 1.2kW frozen"
   },
   "mass": {
-    "total_kg": 199.9,
-    "structure_kg": 61.4,
-    "running_kg": 49.6,
+    "total_kg": 186.9,
+    "structure_kg": 62.7,
+    "running_kg": 35.4,
     "drive_kg": 51.0,
     "tracks_kg": 36.0,
     "misc_kg": 2.0,
@@ -56,5 +56,5 @@
     "source": "cad/mass_audit.json (STEP-measured fab parts)"
   },
   "process": "laser side plates+spacers <=8; lathe rollers/idler/axle/boss; ream bore/keyway; MIG/TIG weld, clamp flat; slots for tension screws + chain centres",
-  "mass_note": "as-drawn 199.9kg incl tracks+motors; target 165kg not met (see MASS.md)"
+  "mass_note": "v3 simple spool: as-drawn 186.9kg incl tracks+motors; target 165kg not met (see MASS.md)"
 }

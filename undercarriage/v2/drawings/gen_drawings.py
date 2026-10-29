@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """gen_drawings.py - UC-V2 A3 drawing pack.
 
@@ -13,6 +14,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 CAD = ROOT / "cad"
 OUT = ROOT / "drawings"
 OUT.mkdir(exist_ok=True)
+
+TOTAL = json.loads((CAD / "mass_audit.json").read_text())["total_kg"]
+MASS = f"{TOTAL:.1f} kg"
 
 # ---- frozen geometry (mm) -------------------------------------------------
 C = 1001.3                 # loop centre distance
@@ -103,14 +107,15 @@ def draw_chain(v):
 # ===========================================================================
 def ga_side():
     s = Sheet("UCV2-GA-001", "GENERAL ARRANGEMENT - SIDE ELEVATION", 1, 14,
-              "1:4", "-", "1", "199.9 kg", notes=[
+              "1:5", "-", "1", MASS, notes=[
                   "1. Near side plate removed for clarity; running gear shown true.",
                   "2. Datum: ground at lug tips z=0, X travel, Z up. Dimensions mm.",
                   "3. Track loop: 37 links x 72 pitch, R105.26, C1001.3 (closure 0).",
                   "4. Chain plane y=+/-140; 48T/14T 428, 60 links, C~170.",
                   "5. Overall W826 over UCFL208 flanges; plates 726; track 700.",
-                  "6. Motor body y 4..134 (inboard); chain runs at y=140, outboard of motor."])
-    v = View(s, 0.25, 210, 110, "SIDE ELEVATION  (scale 1:4)", (14, 282))
+                  "6. Motor body y 4..134 (inboard); chain runs at y=140, outboard of motor.",
+                  "7. Loop centre z=133.3; roller centre z=91.2. Call-outs 1-10 below."])
+    v = View(s, 0.2, 190, 140, "SIDE ELEVATION  (1:5)", (14, 282))
     # ground
     v.line(-660, 0, 660, 0, "thin")
     for x in range(-660, 661, 50):
@@ -145,31 +150,45 @@ def ga_side():
     # chain + guard
     draw_chain(v)
     v.rect(-575, 30, 140, 270, "hid")
-    # dimensions
-    v.dim_h(-TRACK_L / 2, TRACK_L / 2, -84, f"{TRACK_L:.0f} track", 7)
-    v.dim_h(-620, 620, -62, "1240 frame", 7)
-    v.dim_h(-300, 300, 292, "600 roller centres", 7)
-    v.dim_v(650, 0, 441, "441", 7)
-    v.dim_v(620, 0, 267, "267", 7)
-    v.dim_v(-660, 0, ZC, "133.3", 7)
-    v.dim_v(680, 0, ROLL_Z, "91.2", 7)
-    # balloons
-    v.balloon(560, 238, 545, 272, 1)      # track
-    v.balloon(0, 148, 50, 235, 2)         # roller
-    v.balloon(500.6, 233, 535, 258, 3)    # idler
-    v.balloon(-500.6, 238, -575, 258, 4)  # sprocket
-    v.balloon(300, 250, 300, 272, 5)      # plate
-    v.balloon(-360, 440, -330, 268, 6)    # motor
-    v.balloon(150, 155, 205, 222, 7)      # beam
-    v.balloon(-500.6, 133, -620, 180, 8)  # axle
-    v.balloon(150, 175, 235, 192, 9)      # deck pad
-    v.balloon(-370, 195, -255, 232, 10)   # lift lug (under rear tie)
+    # dimensions (feature -> line; negative off = below the part)
+    v.dim_h(-TRACK_L / 2, TRACK_L / 2, 0, f"{TRACK_L:.0f} track", -22)
+    v.dim_h(-620, 620, 0, "1240 frame", -16)
+    v.dim_h(-300, 300, ROLL_Z, "600 roller centres", 40)
+    v.line(-360, 441, 740, 441, "dim")
+    v.line(500.6, 267, 700, 267, "dim")
+    v.dim_v(740, 0, 441, "441", 7)
+    v.dim_v(700, 0, 267, "267", 7)
+    # ten callouts in a spaced row above the view (all outside the machine)
+    zc = 650.0
+    v.balloon(-460, 440, -750, zc, 6)     # motor
+    v.balloon(-500.6, 238, -550, zc, 4)   # sprocket
+    v.balloon(-500.6, 133, -350, zc, 8)   # axle
+    v.balloon(-370, 195, -150, zc, 10)    # lift lug
+    v.balloon(0, 148, 50, zc, 2)          # roller
+    v.balloon(150, 175, 250, zc, 9)       # deck pad
+    v.balloon(170, 135, 450, zc, 7)       # beam
+    v.balloon(300, 250, 650, zc, 5)       # plate
+    v.balloon(500.6, 233, 850, zc, 3)     # idler
+    v.balloon(600, 238, 1050, zc, 1)      # track
+    # large legend, outside the view
+    s.ax.add_patch(plt.Rectangle((12, 62), 204, 36, fill=False, ec="k", lw=0.8))
+    s.ax.text(14, 100, "CALL-OUTS", fontsize=9, weight="bold", va="bottom")
+    legend = [(1, "RUBBER TRACK 180x72x37"), (2, "ROLLER D114.3"),
+              (3, "IDLER D200"), (4, "SPROCKET 72z9"), (5, "SIDE PLATE 6mm"),
+              (6, "MOTOR 1.2 kW"), (7, "BEAM SHS40"), (8, "AXLE D40"),
+              (9, "DECK PAD 80x80"), (10, "LIFT LUG")]
+    for i, (n, txt) in enumerate(legend):
+        col, row = divmod(i, 5)
+        x = 16 + col * 102
+        y = 94 - row * 6.4
+        s.ax.text(x, y, str(n), fontsize=11, weight="bold", va="center")
+        s.ax.text(x + 7, y, txt, fontsize=7.0, va="center")
     s.save(OUT / "UCV2-GA-001")
 
 
 def ga_plan():
     s = Sheet("UCV2-GA-002", "GENERAL ARRANGEMENT - PLAN & END VIEW", 2, 14,
-              "1:7", "-", "1", "199.9 kg", notes=[
+              "1:7", "-", "1", MASS, notes=[
                   "1. Track centres 520; plate gauge 200; overall 826 over UCFL.",
                   "2. Deck pads: x +/-150, y +/-100, top z175 (4x M12).",
                   "3. Motors 2x 1.2 kW on rails at z250..441, pinions at y +/-140.",
@@ -196,13 +215,11 @@ def ga_plan():
     for x in (-190, 110):
         for y in (-140, 60):
             p.rect(x, y, 80, 80, "thin")
-    p.dim_v(-680, -TY, TY, "520", 7)
-    p.dim_h(-TRACK_L / 2, TRACK_L / 2, -450, f"{TRACK_L:.0f}", 7)
-    p.dim_h(-620, 620, -530, "1240", 7)
-    p.dim_v(690, -413, 413, "826", 7)
-    p.dim_h(-190, -110, 170, "80", 4)
+    p.dim_h(-620, 620, 0, "1240", -64)
+    p.dim_h(-TRACK_L / 2, TRACK_L / 2, 0, f"{TRACK_L:.0f}", -76)
+    p.dim_h(-190, -110, 140, "80", 4)
     # ---------------- end view ----------------
-    e = View(s, 1 / 7, 305, 105, "END VIEW  (1:7)", (245, 182))
+    e = View(s, 1 / 7, 305, 105, "END VIEW  (1:7)", (270, 182))
     for yc in (-TY, TY):
         e.rect(yc - 90, 22, 180, 12, "thin")          # belt bottom
         e.rect(yc - 33, 34, 66, 40, "thin")           # horns
@@ -221,18 +238,18 @@ def ga_plan():
     for yy in (-134, 4):
         e.rect(yy, 250, 130, 190, "thin")             # motors
     e.line(-413, 0, 413, 0, "thin")                   # ground
+    e.line(-413, 58, -413, -14, "dim")
+    e.line(413, 58, 413, -14, "dim")
     e.dim_h(-413, 413, -63, "826", 7)
     e.dim_h(-260, 260, -154, "520", 7)
     e.dim_h(-90, 90, -244, "180", 7)
     e.dim_v(465, 0, 441, "441", 7)
     e.dim_v(420, 0, 267, "267", 7)
-    e.dim_v(385, 0, 30, "30", 7)
     e.dim_v(-440, 0, 175, "175", 7)
-    e.dim_h(-140, 140, 240, "280", 5)
     s.save(OUT / "UCV2-GA-002")
 
 
-def table(s, x, y, cols, rows, widths, title=None, fs=6.2, rh=5.2):
+def table(s, x, y, cols, rows, widths, title=None, fs=8.8, rh=7.2):
     """Simple sheet-space table, top-left at (x,y)."""
     w = sum(widths)
     if title:
@@ -280,7 +297,7 @@ def track_section(v):
     v.rect(-33, 192.6, 66, 40, "thin")          # top horns
 
 
-def ga_roller_section():
+def ga_roller_section_v2():
     s = Sheet("UCV2-GA-003", "SECTION A-A - ROLLER STATION", 3, 14, "1:1.5",
               "IS2062 / EN8", "1 station", "-", notes=[
                   "1. Section at x=0, looking forward (+X). Local y=0 at track centre.",
@@ -288,7 +305,8 @@ def ga_roller_section():
                   "3. Disc bottom 34.05 on belt inner 34.04 (0.01 clearance).",
                   "4. Plate 6mm at y=+/-100; disc-to-plate gap 15.",
                   "5. Shaft D25 L260 clamped by collars at both plates; washer + R-pin.",
-                  "6. No top roller: top run is unsupported (MBS: slack side)."])
+                  "6. No top roller: top run is unsupported (MBS: slack side).",
+                  "7. Track overall height 267 at idler; top run 238.6 at mid-span."])
     v = View(s, 1 / 1.5, 150, 82, "SECTION A-A  (1:1.5)", (14, 282))
     track_section(v)
     # plates
@@ -308,22 +326,21 @@ def ga_roller_section():
     v.circle(121, 91.2, 3, "thin")
     v.line(-130, 91.2, 130, 91.2, "cen")
     # dims
-    v.dim_h(-62, 62, 168, "124", 8)
-    v.dim_h(-82, -42, 152, "40", 6)
-    v.dim_h(-100, 100, 278, "200 gauge", 8)
-    v.dim_h(-90, 90, -32, "180 belt", 8)
-    v.dim_h(-33, 33, -55, "66 horn", 8)
-    v.dim_v(-125, 0, 34, "34", 7)
-    v.dim_v(-125, 0, 267, "267", 7)
-    v.dim_v(120, 0, 91.2, "91.2", 7)
-    v.leader(62, 148.3, 112, 190, "D114.3 x40 disc (12 off)")
-    v.leader(125, 91.2, 150, 150, "D25 shaft L260")
-    v.leader(-100, 70, -145, 55, "6mm plate (4 off)")
-    v.leader(62, 65.2, 105, 48, "6205-2RS x1/disc")
-    v.leader(-109, 71.2, -145, 95, "D25 collar x16")
+    v.dim_h(-62, 62, 148.3, "124", 13)
+    v.dim_h(-82, -42, 148.3, "40", 3)
+    v.dim_h(-100, 100, 250, "200 gauge", 18)
+    v.dim_h(-90, 90, 22, "180 rubber track", -36)
+    v.dim_h(-33, 33, 74, "66 horn", 31)
+    v.dim_v(-100, 0, 34.05, "34.05", -17)
+    v.line(130, 91.2, 150, 91.2, "dim")
+    v.dim_v(150, 0, 91.2, "91.2", 7)
+    v.leader(62, 148.3, 95, 205, "Ø114.3 x40 disc (12 off)", ha="right")
+    v.leader(125, 91.2, 150, 150, "Ø25 shaft L260")
+    v.leader(-100, 70, -160, 30, "6mm plate (4 off)")
+    v.leader(62, 65.2, 110, 30, "6205-2RS x1/disc")
+    v.leader(-109, 71.2, -175, 150, "Ø25 collar x16", ha="left")
     v.leader(117, 66.2, 142, 75, "washer + R-pin")
-    v.leader(0, 212.6, 30, 185, "top horns 66x40")
-    v.leader(0, 74, 40, 110, "bottom horn")
+    v.leader(0, 212.6, 30, 185, "track horns 66x40")
     s.save(OUT / "UCV2-GA-003")
 
 
@@ -331,10 +348,11 @@ def ga_drive_section():
     s = Sheet("UCV2-GA-004", "SECTION B-B - DRIVE STATION", 4, 14, "1:1.5",
               "EN8 / IS2062", "1 station", "-", notes=[
                   "1. Section at x=-500.6, looking forward. Local y=0 at track centre.",
-                  "2. 48T chain plane y=-120 (global 140); 72z pack at y=0 (global 260).",
+                  "2. 48T plane y=-120 (global 140); 72z pack y=0 (global 260); axle centre z=133.3.",
                   "3. Axle D40 L300: keyways y=142..157 (48T) and 238..282 (72z hub).",
                   "4. UCFL208 outboard 363..413; axle end 410 -> 47mm engagement.",
-                  "5. D40 collars (OD60) trap the 48T wheel and the 72z hub."])
+                  "5. D40 collars (OD60) trap the 48T wheel and the 72z hub.",
+                  "6. Chain plane y=140 (global), 120 inboard of track centre."])
     v = View(s, 1 / 1.5, 150, 82, "SECTION B-B  (1:1.5)", (14, 282))
     track_section(v)
     for yc in (-100, 100):
@@ -358,45 +376,44 @@ def ga_drive_section():
     # UCFL outboard: housing 50, bore 40
     sect_rect(v, 128, 133.3, 50, 150, bore=40)
     # dims
-    v.dim_h(-120, 0, -25, "120 chain plane to track centre", 7)
-    v.dim_v(185, 0, 133.3, "133.3", 7)
-    v.dim_v(165, 103.3, 153.3, "40 axle", 7)
-    v.leader(-120, 171.3, -165, 205, "48T wheel 4 + 15 hub")
+    v.dim_v(150, 103.3, 153.3, "Ø40 axle", 6)
+    v.leader(-120, 171.3, -160, 240, "48T wheel 4 + 15 hub", ha="left")
     v.leader(0, 171.3, 35, 205, "72z pack 2x8 + hub 44")
-    v.leader(153, 208.3, 165, 235, "UCFL208, 50 bore")
-    v.leader(-128, 103.3, -165, 55, "D40 collar OD60")
-    v.leader(-10, 123.3, -40, 60, "keyway 12JS9")
+    v.leader(153, 208.3, 165, 235, "UCFL208, 40 bore")
+    v.leader(-128, 103.3, -165, 55, "Ø40 collar, Ø60 OD")
+    v.leader(-10, 123.3, -65, 50, "keyway 12JS9")
     s.save(OUT / "UCV2-GA-004")
 
 
 def p_plate():
     s = Sheet("UCV2-P-001", "SIDE PLATE - FLAT PATTERN", 5, 14, "1:4",
-              "IS2062 E250Br 6mm", "4 (2 L + 2 R)", "10.27 kg ea", notes=[
+              "IS2062 E250Br 6mm", "4 (2L+2R)", "10.59 kg", notes=[
                   "1. ONE DXF, mirror for L/R; etch part mark on non-show face.",
                   "2. Hole datum: X=0 at mid, Z=0 at plate bottom; table z is global.",
                   "3. Break all edges 1x45; corner radii R15 laser.",
-                  "4. Plate seats: D26 roller (3), D45 axle, 26x50 idler slot, 15x60 UCFL slots.",
+                  "4. Plate seats: D26 roller (3), D45 axle, 26x50 idler slot, 15x40 UCFL slots (clear D45).",
                   "5. 14x D14 holes take the beam flanges (schedule P-007).",
                   "6. 2 obround pockets 20R; no ribs (6mm dent-governed, see margins)."])
     v = View(s, 0.25, 210, 175, "FLAT PATTERN  (1:4)", (14, 282))
     v.dxf(str(CAD / "side_plate.dxf"))
     v.dim_h(-620, 620, -34, "1240", 8)
-    v.dim_v(650, 0, 220, "220", 8)
-    v.leader(620, 220, 585, 240, "6mm plate")
-    v.leader(-620, 205, -560, 238, "R15 (4)")
+    v.dim_v(620, 0, 220, "220", 8)
+    v.leader(560, 220, 530, 240, "6mm plate", ha="right")
+    v.leader(-590, 190, -550, 240, "R15 (4)")
     v.leader(480.6, 103.3, 545, 140, "26x50 idler slot")
-    v.leader(-500.6, 103.3, -560, 145, "D45 axle")
-    v.leader(-500.6, 58, -560, 80, "15x60 UCFL slot")
-    v.leader(300, 61.2, 345, 120, "D26 roller (3)")
+    v.leader(-510, 110, -580, 200, "Ø45 axle", ha="right")
+    v.leader(-500.6, 43, -560, 75, "15x40 UCFL slot (2)", ha="right")
+    v.leader(300, 61.2, 345, 95, "Ø26 roller (3)")
     v.text(0, -55, "DATUM: X0 = MID, Z0 = PLATE BOTTOM (z = local y + 30)",
            size=6, ha="center")
     rows = [
-        ["A", "-300 / 0 / +300", "91.2", "D26", "3"],
+        ["A", "-300 / 0 / +300", "91.2", "Ø26", "3"],
         ["B", "+480.6", "133.3", "26 x 50", "1"],
-        ["C", "-500.6", "133.3", "D45", "1"],
-        ["D", "-500.6", "88 / 178", "15 x 60", "2"],
-        ["E", "see P-007", "120/150/175/205", "D14", "14"],
-        ["F", "-280..-130 / 250..430", "140..230", "20R pocket", "2"],
+        ["C", "-500.6", "133.3", "Ø45", "1"],
+        ["D", "-500.6", "73 / 193", "15 x 40", "2"],
+        ["E", "per P-007", "120..205", "Ø14", "14"],
+        ["F1", "-280..-130", "160..230", "150 x 70", "1"],
+        ["F2", "250..430", "140..230", "180 x 90", "1"],
     ]
     table(s, 12, 150, ["ID", "x", "z", "size", "qty"], rows,
           [10, 42, 34, 30, 10], "HOLE TABLE (mm)")
@@ -419,7 +436,7 @@ def roller_section(v, x0=0.0):
         v.rect(x0 + 12.5, zz, 15, 13.5, "thin", fill="0.88")
         v.line(x0 + 16.5, zz, x0 + 16.5, zz + 13.5, "thin")
         v.line(x0 + 23.5, zz, x0 + 23.5, zz + 13.5, "thin")
-    v.hatch_rect(x0 - 8, -12.5, 56, 25, "\\\\\\\\")
+    v.rect(x0 - 8, -12.5, 56, 25, "thin", fill="0.72")
     # bore + hub bore lines
     v.line(x0, 12.5, x0 + 40, 12.5, "thin")
     v.line(x0, -12.5, x0 + 40, -12.5, "thin")
@@ -427,10 +444,10 @@ def roller_section(v, x0=0.0):
     v.line(x0, -26, x0 + 40, -26, "thin")
 
 
-def p_roller():
+def p_roller_v2():
     s = Sheet("UCV2-P-002", "ROLLER DRUM D114.3 - ASSEMBLY", 6, 14, "1:1",
-              "MS-ERW + E250 + EN8", "12", "1.37 + brg", notes=[
-                  "1. Shell 100NB-M 114.3x4.5 x40; cheeks 6mm OD114/ID65 (STRUCTURAL).",
+              "MS-ERW + E250", "12", "1.37 + brg", notes=[
+                  "1. Shell 100NB-M 114.3x4.5 x28 + 2x6 cheeks = 40 overall (STRUCTURAL).",
                   "2. Hub: 5 laser rings OD65/ID52x8 = 40 long, Loctite 638 stack.",
                   "3. 1x 6205-2RS press + circlip 52x1.5. Sealed, no grease.",
                   "4. Weld cheeks OUTSIDE only, 3mm fillet, stitch then continuous.",
@@ -442,21 +459,21 @@ def p_roller():
     v.dim_h(0, 40, -75, "40", 8)
     v.dim_h(0, 6, 72, "6", 5)
     v.dim_v(52, 0, 57.15, "57.15", 5)
-    v.dim_v(70, -57.15, 57.15, "D114.3", 6)
+    v.dim_v(70, -57.15, 57.15, "Ø114.3", 6)
     v.leader(20, 57.15, 25, 80, "shell 114.3x4.5 x28")
     v.leader(3, 32.5, -25, 65, "cheek 6x2 (40 overall)")
     v.leader(20, 32.5, 55, 50, "hub 65/52 (5x8)")
-    v.leader(20, 26, 55, 28, "6205-2RS + circlip")
+    v.leader(20, 26, -25, 50, "6205-2RS + circlip", ha="left")
     # end view
     e = View(s, 1.0, 205, 180, "END VIEW  (1:1)", (183, 282))
     for r, st in ((57.15, "out"), (32.5, "thin"), (26, "thin"), (12.5, "thin")):
         e.circle(0, 0, r, st)
     e.center(0, 0, 62)
-    e.dim_v(70, -57.15, 57.15, "D114.3", 6)
+    e.dim_v(70, -57.15, 57.15, "Ø114.3", 6)
     e.leader(0, 57.15, 15, 72, "tread")
-    e.leader(0, 32.5, 30, 50, "hub OD65")
-    e.leader(0, 26, 30, 25, "brg OD52")
-    e.leader(0, 12.5, 30, 5, "bore 25")
+    e.leader(32.5, 0, 50, 0, "Ø65 hub")
+    e.leader(26, 0, 45, -20, "Ø52 brg")
+    e.leader(12.5, 0, 35, -35, "Ø25 bore")
     rows = [["1", "shell 114.3x4.5x28", "MS-ERW", "1", "0.34"],
             ["2", "cheek OD114/ID65x6", "E250", "2", "0.32"],
             ["3", "hub ring OD65/ID52x8", "E250", "5", "0.08"],
@@ -467,7 +484,7 @@ def p_roller():
     s.save(OUT / "UCV2-P-002")
 
 
-def p_idler():
+def p_idler_v2():
     s = Sheet("UCV2-P-003", "IDLER DISC D200 - ASSEMBLY", 7, 14, "1:1.5",
               "E250 + EN8", "4", "5.37 + brg", notes=[
                   "1. 5 laser rings OD200/ID150x8 = 40 wide tread, welded stack.",
@@ -475,7 +492,8 @@ def p_idler():
                   "3. Web is STRUCTURAL: connects tread to hub; weld both sides.",
                   "4. Hub: 5 rings OD65/ID52x8 = 40, Loctite 638.",
                   "5. 1x 6205-2RS press + circlip; no skim (flap-disc max 1mm).",
-                  "6. Idler runs on belt inner R99.26; 0.7mm radial preload accepted."])
+                  "6. Idler runs on belt inner R99.26; 0.7mm radial preload accepted.",
+                  "7. D25 shaft shown for reference (see P-004)."])
     v = View(s, 1 / 1.5, 70, 150, "SECTION  (1:1.5)", (14, 282))
     # 5 tread rings 8 wide, OD200/ID150, z -100..100
     for x in (0, 8, 16, 24, 32):
@@ -492,26 +510,26 @@ def p_idler():
         v.rect(12.5, zz, 15, 13.5, "thin", fill="0.88")
         v.line(16, zz, 16, zz + 13.5, "thin")
         v.line(24, zz, 24, zz + 13.5, "thin")
-    v.hatch_rect(-8, -12.5, 56, 25, "\\\\\\\\")
+    v.rect(-8, -12.5, 56, 25, "thin", fill="0.72")
     v.line(0, 12.5, 40, 12.5, "thin")
     v.line(0, -12.5, 40, -12.5, "thin")
     v.line(0, 26, 40, 26, "thin")
     v.line(0, -26, 40, -26, "thin")
     v.line(0, 0, 40, 0, "cen")
     v.dim_h(0, 40, -120, "40 (5x8)", 8)
-    v.dim_v(55, -100, 100, "D200", 7)
-    v.dim_v(75, 0, 100, "R100", 6)
-    v.dim_v(95, -75, 75, "D150", 6)
+    v.dim_v(40, -100, 100, "Ø200", 20)
+    v.dim_v(40, 0, 100, "R100", 30)
+    v.dim_v(40, -75, 75, "Ø150", 42)
     v.leader(4, 100, -10, 120, "5 rings 8mm")
     v.leader(20, 75, 35, 60, "web 150/65 x6")
-    v.leader(20, 32.5, 55, 45, "hub 65/52")
-    v.leader(20, 26, 55, 20, "6205 + circlip")
+    v.leader(20, 32.5, 35, 42, "hub 65/52")
+    v.leader(20, 26, 20, -35, "6205 + circlip")
     e = View(s, 1 / 1.5, 220, 150, "END VIEW  (1:1.5)", (195, 282))
     for r, st in ((100, "out"), (75, "thin"), (32.5, "thin"),
                   (26, "thin"), (12.5, "thin")):
         e.circle(0, 0, r, st)
     e.center(0, 0, 105)
-    e.dim_v(115, -100, 100, "D200", 6)
+    e.dim_v(115, -100, 100, "Ø200", 6)
     e.leader(0, 75, 20, 90, "ID150")
     rows = [["1", "ring OD200/ID150x8", "E250", "5", "0.86"],
             ["2", "web OD150/ID65x6", "E250", "1", "0.68"],
@@ -519,14 +537,14 @@ def p_idler():
             ["4", "6205-2RS", "COTS", "1", "0.13"],
             ["5", "circlip 52x1.5", "COTS", "1", "-"]]
     table(s, 305, 250, ["#", "part", "mat", "qty", "kg"], rows,
-          [7, 48, 18, 10, 10], "DISC PARTS")
+          [7, 48, 18, 10, 10], "DISC PARTS", rh=7.4)
     s.save(OUT / "UCV2-P-003")
 
 
 def p_shafts():
     s = Sheet("UCV2-P-004", "SHAFT D25 x260  &  AXLE D40 x300", 8, 14, "1:2",
               "EN8 (bright)", "8 + 2", "1.00 / 2.93 kg", notes=[
-                  "1. D25 shafts: 8 off L260, EN8, g6; 1x D6 cross hole 9 from outboard end.",
+                  "1. D25 shafts: 8 off L260, EN8; bearing seats Ø25 k5, ends g6; 1x Ø6 cross hole 9 from outboard end.",
                   "2. D40 axles: 2 off L300, EN8, h6; 4 keyways 12JS9 x5 deep (outsource).",
                   "3. Axle keyways: 32..47 and 128..172 from the 48T (inboard) end.",
                   "4. Collars/washer/R-pin shown dashed for position only (COTS).",
@@ -543,9 +561,9 @@ def p_shafts():
     v.line(251, -12.5, 251, 12.5, "cen")
     v.circle(251, 0, 3, "hid")
     v.line(0, 0, 260, 0, "cen")
-    v.dim_h(0, 260, -55, "260", 8)
-    v.dim_v(275, -12.5, 12.5, "D25", 6)
-    v.leader(251, 0, 262, 34, "D6 cross hole, 9 from end", ha="left")
+    v.dim_h(0, 260, -12.5, "260", -21)
+    v.dim_v(260, -12.5, 12.5, "Ø25 k5", 6)
+    v.leader(251, 0, 262, 34, "Ø6 cross hole, 9 from end", ha="left")
     v.leader(21, 20, 40, 40, "D25 collar (2)")
     v.leader(247, 25, 235, 45, "washer + R-pin", ha="right")
     # axle
@@ -561,14 +579,20 @@ def p_shafts():
         a.line(x0, 15, x0 + ln, 15, "out")
         a.line(x0 + ln, 15, x0 + ln, 20, "out")
     a.line(0, 0, 300, 0, "cen")
-    a.dim_h(0, 300, -50, "300", 8)
-    a.dim_v(315, -20, 20, "D40 h6", 6)
+    a.dim_h(0, 300, -20, "300", -15)
+    a.dim_v(300, -20, 20, "Ø40 h6", 6)
+    for x in (0, 32, 47):
+        a.line(x, 20, x, 44, "dim")
+    for x in (128, 172):
+        a.line(x, 20, x, 58, "dim")
     a.dim_h(0, 32, 42, "32", 5)
-    a.dim_h(32, 47, 33, "15 key", 4)
+    a.dim_h(32, 47, 33, "15", 4)
     a.dim_h(0, 128, 55, "128", 5)
-    a.dim_h(128, 172, 46, "44 key", 4)
-    a.leader(39, 20, 62, 78, "12JS9 x5 deep (4 off)")
-    a.leader(150, 20, 205, 70, "72z hub keyway")
+    a.dim_h(128, 172, 46, "44", 4)
+    a.leader(39, 20, 66, 82, "12JS9 x5 deep (4 off)")
+    a.leader(150, 20, 210, 75, "72z hub keyway")
+    a.text(0, -34, "INBOARD (48T)", size=6, ha="left")
+    a.text(300, -34, "OUTBOARD", size=6, ha="right")
     s.save(OUT / "UCV2-P-004")
 
 
@@ -584,10 +608,11 @@ def p_sprocket():
     v.dxf(str(CAD / "sprocket_72z9.dxf"))
     v.center(0, 0, 108)
     v.dia(0, 0, 105.26, "PD 210.51 (R105.26)", 55, 10)
-    v.dia(0, 0, 80, "root R80", 145, 8)
-    v.dia(0, 0, 20, "bore D40", 225, 8)
+    v.leader(-56.6, 56.6, -92, 92, "root R80", ha="right")
+    v.leader(20, 0, 70, -120, "Ø40 bore")
+    v.leader(47.6, 27.5, 80, 60, "6x Ø14 on R55")
     v.leader(90, 45, 120, 85, "9 teeth x 72 pitch")
-    v.text(0, -122, "2 plates / side pack, 8mm each; 8x D14 mount holes", size=6)
+    v.text(-30, -138, "2 plates / side pack, 8mm each; 6x D14 mount holes", size=6)
     # hub section
     h = View(s, 1.0, 255, 180, "HUB  (1:1)", (228, 282))
     h.rect(0, -38, 44, 76, "thin")
@@ -598,14 +623,14 @@ def p_sprocket():
     h.line(28, 26, 28, 21, "out")
     h.line(0, 0, 44, 0, "cen")
     h.dim_h(0, 44, -52, "44", 8)
-    h.dim_v(-15, -38, 38, "D76", 6)
-    h.dim_v(58, -21, 21, "D42", 6)
+    h.dim_v(-15, -38, 38, "Ø76", 6)
+    h.dim_v(58, -21, 21, "Ø42", 6)
     h.leader(14, 20, 30, 40, "12JS9 x5")
     h.text(22, -60, "6x8 rings, faced", size=6)
     rows = [["72z9", "9T x 72, PD210.51, D40, 8mm", "E250", "4", "1.52"],
             ["hub76", "OD76/ID42 x44, 12JS9", "E250", "2", "1.13"]]
     table(s, 300, 255, ["part", "description", "mat", "qty", "kg"], rows,
-          [18, 58, 18, 10, 12], "DRIVE PARTS")
+          [14, 60, 14, 9, 10], "DRIVE PARTS")
     s.save(OUT / "UCV2-P-005")
 
 
@@ -628,7 +653,11 @@ def p_chain():
     v.line(-10, 0, 50, 0, "cen")
     v.line(40.6, 0, 40.6, 170, "cen")
     v.dim((0, 0), (40.6, 163.7), "C 168.66", 10)
-    v.dim_h(0, 40.6, -115, "40.6", 6)
+    v.line(0, 0, 0, 170, "dim")
+    v.line(40.6, 163.7, 40.6, 170, "dim")
+    v.line(0, 0, 60, 0, "dim")
+    v.line(40.6, 163.7, 60, 163.7, "dim")
+    v.dim_h(0, 40.6, 170, "40.6", 18)
     v.dim_v(55, 0, 163.7, "163.7", 6)
     v.dia(0, 0, 97.1, "48T PD194.2", 135, 8)
     v.dia(40.6, 163.7, 28.5, "14T PD57.1", 45, 8)
@@ -641,7 +670,7 @@ def p_chain():
     rows = [["pitch", "12.7 (428)", "links", "60"],
             ["14T PD", "57.07", "48T PD", "194.20"],
             ["ratio", "3.43", "pull", "835 N"],
-            ["C", "168.66", "sag", "10-15"]]
+            ["C", "168.66", "sag", "10-15 mm"]]
     table(s, 300, 120, ["item", "value", "item", "value"], rows,
           [24, 30, 24, 26], "CHAIN DATA")
     s.save(OUT / "UCV2-P-006")
@@ -652,7 +681,7 @@ def p_frame():
               "1:1 / 1:2", "SHS40x3.2 / E250 8mm", "as listed", "see table", notes=[
                   "1. All beams SHS40x40x3.2, one size; 4x L320 fitted (+1 spare).",
                   "2. Rails 4x L300 at z210..250; motors sit at z250.",
-                  "3. Flange mid 140x70x8 (6 off) 4xM12; front 50x70x8 (2 off) 2xM12.",
+                  "3. Flange mid/rear 140x70x8 (6 off: 4 mid + 2 rear) 4xM12; front 2 off 2xM12.",
                   "4. 28x M12 total per machine (14/side): mid 16, rear 8, front 4.",
                   "5. TVS 8.8, 80Nm, nylock + hardened washer + paint mark.",
                   "6. Weld 3mm fillet tube-to-flange, stitch then continuous."])
@@ -663,27 +692,29 @@ def p_frame():
     v.hatch_rect(0, 36.8, 40, 3.2)
     v.hatch_rect(0, 3.2, 3.2, 33.6)
     v.hatch_rect(36.8, 3.2, 3.2, 33.6)
-    v.dim_h(0, 40, -10, "40", 6)
-    v.dim_v(50, 0, 40, "40", 6)
+    v.dim_h(0, 40, 0, "40", -10)
+    v.dim_v(40, 0, 40, "40", 6)
     v.leader(20, 40, 25, 55, "3.2 wall")
     # flange mid
     f = View(s, 0.5, 150, 220, "FLANGE MID  (1:2)", (120, 282))
     f.rect(-70, -35, 140, 70, "out")
     for x, y in ((-50, -15), (50, -15), (-50, 15), (50, 15)):
         f.circle(x, y, 7, "out")
-    f.dim_h(-70, 70, -55, "140", 7)
-    f.dim_v(85, -35, 35, "70", 7)
-    f.leader(50, 15, 60, 40, "4x D14")
+    f.dim_h(-70, 70, -35, "140", -20)
+    f.dim_v(70, -35, 35, "70", 15)
+    f.leader(50, 15, 60, 40, "4x Ø14")
+    f.text(0, -100, "hole pitch 100 x 30", size=6)
     # flange front
     q = View(s, 0.5, 300, 220, "FLANGE FRONT  (1:2)", (270, 282))
     q.rect(-25, -35, 50, 70, "out")
     for y in (-15, 15):
         q.circle(0, y, 7, "out")
-    q.dim_h(-25, 25, -55, "50", 7)
-    q.dim_v(40, -35, 35, "70", 7)
-    q.leader(0, 15, 10, 40, "2x D14")
+    q.dim_h(-25, 25, -35, "50", -20)
+    q.dim_v(25, -35, 35, "70", 15)
+    q.leader(0, 15, 10, 40, "2x Ø14")
+    q.text(0, -100, "hole pitch 30", size=6)
     # beam lengths
-    b = View(s, 0.2, 60, 150, "BEAM L320 / RAIL L300  (1:5)", (14, 165))
+    b = View(s, 0.2, 60, 150, "BEAM L320 / RAIL L300  (1:5)", (14, 190))
     b.rect(0, 0, 320, 40, "out")
     b.rect(0, 60, 300, 40, "out")
     b.dim_h(0, 320, -15, "320", 6)
@@ -698,7 +729,7 @@ def p_frame():
 def p_deck():
     s = Sheet("UCV2-P-008", "DECK INTERFACE  &  LIFT LUGS", 12, 14, "1:1 / 1:10",
               "E250 / MS", "4 pads + 2 lugs", "see table", notes=[
-                  "1. 4x deck pads 80x80x10 on mid beams, top z=175.",
+                  "1. 4x deck pads 80x80x20 on mid beams, top z=175.",
                   "2. Pad centres x=+/-150, y=+/-100; M12 slot +/-3 + shim pack.",
                   "3. 2x lift lugs under the rear tie, x=-370, y=+/-100, z130..210.",
                   "4. Lug hole D20; sling rating to be marked at build.",
@@ -713,7 +744,7 @@ def p_deck():
     v.dim_h(-40, 40, -60, "80", 7)
     v.dim_v(55, -40, 40, "80", 7)
     v.leader(0, 15, 25, 55, "2x M12 slot +/-3")
-    v.text(0, -70, "80x80x10 pad (4)", size=6)
+    v.text(0, -70, "80x80x20 pad (4)", size=6)
     # section
     e = View(s, 1.0, 190, 225, "SECTION  (1:1)", (160, 282))
     e.rect(-40, 0, 80, 10, "out")
@@ -727,7 +758,7 @@ def p_deck():
     l.circle(0, 55, 10, "out")
     l.dim_h(-30, 30, -10, "60", 6)
     l.dim_v(42, 0, 80, "80", 6)
-    l.leader(0, 55, 20, 40, "D20 sling hole")
+    l.leader(0, 55, -5, 35, "Ø20 sling hole", ha="right")
     side = View(s, 1.0, 360, 190, "SIDE", (345, 232))
     side.rect(0, 0, 10, 80, "out")
     side.dim_h(0, 10, -8, "10", 5)
@@ -739,10 +770,17 @@ def p_deck():
             p.rect(x, y, 80, 80, "out")
     for y in (-130, 70):
         p.rect(-400, y, 60, 60, "thin")
-    p.dim_h(-190, 110, -450, "300", 6)
-    p.dim_v(700, -140, 140, "200", 6)
-    rows = [["deck pad", "80x80x10", "E250", "4", "0.95"],
-            ["lift lug", "10x60x80, D20", "MS", "2", "0.35"]]
+    p.dim_h(-150, 150, -450, "300", 6)
+    p.dim_v(700, -100, 100, "200", 6)
+    p.text(-150, -100, "P", size=8, weight="bold")
+    p.text(-150, 100, "P", size=8, weight="bold")
+    p.text(150, -100, "P", size=8, weight="bold")
+    p.text(150, 100, "P", size=8, weight="bold")
+    p.text(-370, -100, "L", size=8, weight="bold")
+    p.text(-370, 100, "L", size=8, weight="bold")
+    p.text(210, -470, "P = deck pad (4); L = lift lug (2)", size=6, ha="left")
+    rows = [["deck pad", "80x80x20", "E250", "4", "0.95"],
+            ["lift lug", "10x60x80, Ø20", "MS", "2", "0.35"]]
     table(s, 300, 120, ["part", "size", "mat", "qty", "kg"], rows,
           [22, 36, 16, 10, 12], "DECK PARTS")
     s.save(OUT / "UCV2-P-008")
@@ -765,31 +803,43 @@ def p_tension():
     v.dim_h(-10, 20, -32, "30", 6)
     v.dim_v(105, -25, 25, "50", 6)
     v.leader(60.6, 13, 75, 45, "idler shaft D26 bore")
-    v.leader(40, 0, 45, 35, "M12 rod")
-    v.text(25, -40, "travel 50", size=6)
+    v.dim_h(-10, 40, -40, "50 travel", 7)
+    v.balloon(-10, 0, -40, 63, 1)     # lug
+    v.balloon(40, 0, 0, 63, 2)        # rod
+    v.balloon(60.6, 0, 40, 63, 3)     # eye
+    v.balloon(18, 12, 80, 63, 4)      # nut
     # collars
-    c = View(s, 1.0, 240, 220, "D25 COLLAR  (1:1)", (210, 282))
+    c = View(s, 1.0, 240, 220, "Ø25 COLLAR  (1:1)", (210, 282))
     c.rect(0, -20, 12, 40, "out")
     c.rect(0, -12.5, 12, 25, "thin", fill="white")
     c.dim_h(0, 12, -30, "12", 5)
     c.dim_v(25, -20, 20, "D40", 5)
     c.leader(6, 20, 15, 30, "M6 grub")
+    c.balloon(0, 20, -20, 45, 5)
+    # D40 collar (separate view)
+    d = View(s, 1.0, 225, 92, "Ø40 COLLAR  (1:1)", (200, 140))
+    d.circle(0, 0, 30, "out")
+    d.circle(0, 0, 20, "thin")
+    d.dim_v(40, -30, 30, "OD60", 5)
+    d.rect(50, -30, 12, 60, "out")
+    d.dim_h(50, 62, -40, "12", 5)
+    d.balloon(30, 30, 45, 55, 6)
     # washer + pin
-    w = View(s, 1.0, 300, 220, "WASHER / PIN  (1:1)", (270, 282))
+    w = View(s, 1.0, 310, 220, "WASHER / PIN  (1:1)", (285, 282))
     w.circle(0, 0, 25, "out")
     w.circle(0, 0, 13, "thin")
     w.dim_v(35, -25, 25, "OD50", 5)
-    w.text(0, -35, "4 thick", size=5)
+    w.leader(0, -25, 15, -40, "4 thk")
     w.rect(45, -3, 40, 6, "out")
-    w.text(65, -10, "D6x40", size=5)
-    rows = [["tension lug", "30x24x40", "MS", "4", "0.20"],
-            ["rod", "M12x110", "EN8", "4", "0.10"],
-            ["eye", "70x24x50", "MS", "4", "0.52"],
-            ["nut", "M12 (19 A/F)", "8.8", "8", "0.02"],
-            ["collar", "D25 OD40x12", "COTS", "16", "0.07"],
-            ["collar", "D40 OD60x12", "COTS", "4", "0.15"]]
-    table(s, 300, 120, ["part", "size", "mat", "qty", "kg"], rows,
-          [22, 36, 14, 10, 12], "SMALL PARTS")
+    w.text(65, -10, "Ø6x40", size=6)
+    rows = [["1", "tension lug", "30x24x40", "MS", "4", "0.20"],
+            ["2", "rod", "M12x110", "EN8", "4", "0.10"],
+            ["3", "eye", "70x24x50", "MS", "4", "0.52"],
+            ["4", "nut", "M12 (19 A/F)", "8.8", "8", "0.02"],
+            ["5", "collar", "Ø25 OD40x12", "COTS", "16", "0.07"],
+            ["6", "collar", "Ø40 OD60x12", "COTS", "4", "0.15"]]
+    table(s, 300, 120, ["#", "part", "size", "mat", "qty", "kg"], rows,
+          [7, 22, 36, 14, 10, 12], "SMALL PARTS")
     s.save(OUT / "UCV2-P-009")
 
 
@@ -800,15 +850,54 @@ def p_bom():
               "1 machine", f"{data['total_kg']} kg", notes=[
                   "1. Mass measured from STEP at 7850 kg/m3; bought parts catalogue.",
                   f"2. Total {data['total_kg']} kg incl tracks + motors (target 165 kg).",
-                  "3. Laser parts: 10 DXFs (plate, sprocket, rings, web, cheeks, hubs, flanges, guard).",
+                  "3. Laser parts: 8 DXFs (plate, sprocket, 2 backplates, hub76, 2 flanges, guard).",
                   "4. Outsource: 8 keyways + 2x 48T bore adapt; laser + machine shop only.",
-                  "5. TVS 8.8 fasteners; 80Nm structural M12; nylock + paint mark."])
+                  "5. TVS 8.8 fasteners; 80Nm structural M12; nylock + paint mark.",
+                  "6. Category masses rounded to 0.1 kg; total is the sum of item masses."])
+    def sheet_ref(part):
+        p = part.lower()
+        if "roller drum" in p:
+            return "P-002"
+        if "idler drum" in p:
+            return "P-003"
+        if "plate" in p:
+            return "P-001"
+        if "roller" in p:
+            return "P-002"
+        if "idler" in p:
+            return "P-003"
+        if "shaft" in p or "axle" in p:
+            return "P-004"
+        if "sprocket" in p or "hub" in p:
+            return "P-005"
+        if "chain" in p or "guard" in p or "48t" in p:
+            return "P-006"
+        if "spacer 42.4" in p:
+            return "P-002/3"
+        if "6205" in p:
+            return "P-002/3"
+        if "ucfl" in p:
+            return "GA-004"
+        if any(k in p for k in ("beam", "rail", "flange", "spacer")):
+            return "P-007"
+        if "deck" in p or "lift" in p:
+            return "P-008"
+        if any(k in p for k in ("tension", "rod", "eye", "collar",
+                                "washer", "pin", "nut")):
+            return "P-009"
+        if "6205" in p or "ucfl" in p:
+            return "GA-003/4"
+        if "motor" in p or "track" in p:
+            return "GA-001"
+        return "-"
+
     rows = []
-    for it in data["items"]:
-        rows.append([it["category"], it["part"], it["qty"], it["unit_kg"],
-                     it["mass_kg"]])
-    table(s, 12, 270, ["cat", "part", "qty", "kg ea", "kg"], rows,
-          [22, 150, 12, 18, 18], "PARTS LIST (as drawn)", fs=5.8, rh=5.0)
+    for i, it in enumerate(data["items"], 1):
+        rows.append([i, it["category"], it["part"], sheet_ref(it["part"]),
+                     it["qty"], f"{it['unit_kg']:.3f}", f"{it['mass_kg']:.1f}"])
+    table(s, 12, 270, ["#", "cat", "part", "sheet", "qty", "kg ea", "kg"],
+          rows, [7, 18, 100, 16, 8, 14, 14], "PARTS LIST (as drawn)",
+          fs=8.4, rh=6.4)
     cat = [[k, v] for k, v in sorted(data["category_kg"].items(),
                                      key=lambda kv: -kv[1])]
     cat.append(["TOTAL", data["total_kg"]])
@@ -817,8 +906,55 @@ def p_bom():
     s.save(OUT / "UCV2-P-010")
 
 
+def image_sheet(no, title, img, idx, qty, mass, notes):
+    s = Sheet(no, title, idx, 14, "NTS", "MS / E250 / EN8", qty, mass,
+              notes=notes)
+    ax = s.fig.add_axes([0.025, 0.215, 0.95, 0.745])
+    ax.imshow(plt.imread(OUT / img), aspect="equal")
+    ax.axis("off")
+    s.save(OUT / no)
+
+
+def p_roller():
+    image_sheet("UCV2-P-002", "ROLLER STATION V3 - SIMPLE SPOOL",
+                "v3_roller_section.png", 6, "12 drums",
+                "3.54 kg/stn", notes=[
+                    "1. V3 simple spool: 2 identical drums per station at +/-62.",
+                    "2. Pipe + backplate + welded 65/52x22 seat; 52 H7 after welding.",
+                    "3. 6205 outer race press in seat; inner race press on Ø25 shaft.",
+                    "4. Loose 42.4/35.5x109 spacer between bearing inner races.",
+                    "5. No Loctite, no ring stack, no central weld; open outer end.",
+                    "6. Bearing at tread centre; track horn clearance 7.5 mm."])
+
+
+def p_idler():
+    image_sheet("UCV2-P-003", "IDLER STATION V3 - SIMPLE SPOOL",
+                "v3_idler_section.png", 7, "4 drums",
+                "6.33 kg/stn", notes=[
+                    "1. V3 simple spool: 2 identical drums per station at +/-62.",
+                    "2. 200 OD x5 pipe + backplate + welded 65/52x22 seat.",
+                    "3. 6205 press fits; loose 42.4/35.5x109 spacer.",
+                    "4. No Loctite, no ring stack, no central weld.",
+                    "5. Idler pipe bore clears track horn by 24.2 mm.",
+                    "6. Same Ø25 shaft/collars as the roller station."])
+
+
+def ga_roller_section():
+    image_sheet("UCV2-GA-003", "SECTION A-A - ROLLER STATION (V3)",
+                "v3_roller_section.png", 3, "1 station", "3.54 kg",
+                notes=[
+                    "1. V3 simple spool replaces the paired-disc roller.",
+                    "2. Track horn tip shown; clearance to spacer 7.5 mm.",
+                    "3. Belt/plates/machine envelope per GA-001/GA-002.",
+                    "4. 2 identical drums; bearing at tread centre.",
+                    "5. No Loctite, no ring stacks, no central weld."])
+
+
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["ga_side", "ga_plan"]
+    which = sys.argv[1:] or [
+        "ga_side", "ga_plan", "ga_roller_section", "ga_drive_section",
+        "p_plate", "p_roller", "p_idler", "p_shafts", "p_sprocket",
+        "p_chain", "p_frame", "p_deck", "p_tension", "p_bom"]
     for name in which:
         globals()[name]()
         print("drew", name)
