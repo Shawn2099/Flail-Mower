@@ -1,0 +1,10 @@
+{
+  "tag": "v3_idler_drum",
+  "pipe": "200 OD x5 wall x40",
+  "backplate": "OD190/ID65 x6, welded inside pipe",
+  "seat": "OD65/ID52 x22, welded to backplate, 52H7",
+  "bearing": "6205-2RS press fit",
+  "open_end": "outer pipe end, cap optional",
+  "mass_kg": 2.347,
+  "note": "two identical drums per station at +-62; no Loctite, no ring stack"
+}

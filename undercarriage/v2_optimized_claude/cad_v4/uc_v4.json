@@ -1,0 +1,1531 @@
+{
+ "drive": {
+  "pcd_mm": 100.0,
+  "pinion_T": 13,
+  "wheel_T": 52,
+  "ratio": 4.0,
+  "chain_links": 66,
+  "chain_C_mm": 196.94914824188203,
+  "motor_mass_kg": 7.12
+ },
+ "allowances_kg": {
+  "chain 428 62 links x2 (0.7 kg/m, retailer)": 1.1,
+  "chain guards x2 (1.5 mm sheet, estimate)": 3.0,
+  "motor rails x4 (v2 value 1.11 kg each)": 4.44,
+  "deck mounts + lift lugs (deck not defined)": 0.0
+ },
+ "layout": {
+  "spr_teeth": 12,
+  "rollers_x": [
+   -177.0,
+   4.0,
+   184.0
+  ],
+  "cw_plane_y": 231.0,
+  "Rp": 115.9110991546882,
+  "C": 746.4215809616339,
+  "xs": -373.21079048081697,
+  "xi": 373.21079048081697,
+  "zs": 143.9110991546882,
+  "zi": 143.55,
+  "zr": 91.15,
+  "rollers": [
+   -177.0,
+   4.0,
+   184.0
+  ],
+  "R_in_i": 109.55,
+  "YC": 430.0,
+  "plate_y": [
+   327.0,
+   333.0,
+   527.0,
+   533.0
+  ],
+  "overall_bbox": [
+   1080.0,
+   1168.4,
+   363.1
+  ]
+ },
+ "mass_kg": {
+  "total": 185.13,
+  "by_category": {
+   "structure": 59.1,
+   "drive": 42.65,
+   "running": 40.65,
+   "track": 34.2,
+   "allowance": 8.54
+  }
+ },
+ "gates": [
+  {
+   "gate": "overall width <= 1190",
+   "ok": true,
+   "value": 1168.4,
+   "limit": 1190.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "overall height above ground (info)",
+   "ok": true,
+   "value": 390.9,
+   "limit": null,
+   "kind": "measured"
+  },
+  {
+   "gate": "first roller to sprocket tip >=25 (XZ)",
+   "ok": true,
+   "value": 29.5,
+   "limit": 25.0,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "last roller to idler >=25 (XZ)",
+   "ok": true,
+   "value": 29.6,
+   "limit": 25.0,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "last roller to idler, idler retracted 25 mm >=5",
+   "ok": true,
+   "value": 5.7,
+   "limit": 5.0,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "hub/collar clear of horn tips (r hub+5)",
+   "ok": true,
+   "value": 84.9,
+   "limit": 43.0,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "drum gap vs horn base 62 (per side) in 1.5..5",
+   "ok": true,
+   "value": 4.0,
+   "limit": "1.5..5",
+   "kind": "by-construction"
+  },
+  {
+   "gate": "sprocket gorge play vs IGB 24 (per side) in 1.5..5",
+   "ok": true,
+   "value": 4.0,
+   "limit": "1.5..5",
+   "kind": "measured"
+  },
+  {
+   "gate": "spool stack closes to plate faces (194)",
+   "ok": true,
+   "value": 194.0,
+   "limit": 194.0,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "rol0 nut seats on washer, washer on bearing face (no float)",
+   "ok": true,
+   "value": [
+    322.7,
+    322.7,
+    327.0
+   ],
+   "limit": "washer face 327.0",
+   "kind": "by-construction"
+  },
+  {
+   "gate": "idl nut seats on washer, washer on bearing face (no float)",
+   "ok": true,
+   "value": [
+    292.7,
+    292.7,
+    297.0
+   ],
+   "limit": "washer face 297.0",
+   "kind": "by-construction"
+  },
+  {
+   "gate": "axle engagement in inner UCFL >=90% of width",
+   "ok": true,
+   "value": 93.0,
+   "limit": 46.1,
+   "kind": "measured"
+  },
+  {
+   "gate": "axle engagement in outer UCFL >=90% of width",
+   "ok": true,
+   "value": 50.2,
+   "limit": 46.1,
+   "kind": "measured"
+  },
+  {
+   "gate": "chain 66 whole links at C=196.9",
+   "ok": true,
+   "value": 66.0,
+   "limit": 66,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "UCFL M14 nuts clear of the belt >=5",
+   "ok": true,
+   "value": 27.2,
+   "limit": 5.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "beam bolt tips clear of belt >=4 (no nuts on track side)",
+   "ok": true,
+   "value": 4.7,
+   "limit": 4.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "tension rod clear of front beam flange >=5",
+   "ok": true,
+   "value": 10.6,
+   "limit": 5.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "chain-wheel key engages flange+boss >=30 mm",
+   "ok": true,
+   "value": 36.0,
+   "limit": 30.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "chain wheel bottom not below the plate bottom edge (z>=30)",
+   "ok": true,
+   "value": 36.6,
+   "limit": 30.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "chain wheel clears the rear cross-beam (>=10 mm)",
+   "ok": true,
+   "value": 14.0,
+   "limit": 10.0,
+   "kind": "measured"
+  },
+  {
+   "gate": "idler hub inside horn-tip radius (r32.5 < 84.5-10)",
+   "ok": true,
+   "value": 32.5,
+   "limit": 74.5,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "track bottom at ground",
+   "ok": true,
+   "value": 0.0,
+   "limit": 0.0,
+   "kind": "by-construction"
+  },
+  {
+   "gate": "no solid interference (>20 mm3)",
+   "ok": true,
+   "value": 0,
+   "limit": 0,
+   "kind": "measured"
+  }
+ ],
+ "interference": [],
+ "parts": {
+  "plate_in_R": {
+   "cat": "structure",
+   "mass_kg": 10.068
+  },
+  "plate_in_L": {
+   "cat": "structure",
+   "mass_kg": 10.068
+  },
+  "plate_out_R": {
+   "cat": "structure",
+   "mass_kg": 10.106
+  },
+  "plate_out_L": {
+   "cat": "structure",
+   "mass_kg": 10.106
+  },
+  "ucfl_in_R": {
+   "cat": "drive",
+   "mass_kg": 1.5
+  },
+  "ucfl_in_L": {
+   "cat": "drive",
+   "mass_kg": 1.5
+  },
+  "ucfl_out_R": {
+   "cat": "drive",
+   "mass_kg": 1.5
+  },
+  "ucfl_out_L": {
+   "cat": "drive",
+   "mass_kg": 1.5
+  },
+  "axle_R": {
+   "cat": "drive",
+   "mass_kg": 3.4
+  },
+  "axle_L": {
+   "cat": "drive",
+   "mass_kg": 3.4
+  },
+  "key0_R": {
+   "cat": "drive",
+   "mass_kg": 0.027
+  },
+  "key0_L": {
+   "cat": "drive",
+   "mass_kg": 0.027
+  },
+  "key1_R": {
+   "cat": "drive",
+   "mass_kg": 0.03
+  },
+  "key1_L": {
+   "cat": "drive",
+   "mass_kg": 0.03
+  },
+  "collar_a_R": {
+   "cat": "drive",
+   "mass_kg": 0.148
+  },
+  "collar_a_L": {
+   "cat": "drive",
+   "mass_kg": 0.148
+  },
+  "collar_b_R": {
+   "cat": "drive",
+   "mass_kg": 0.148
+  },
+  "collar_b_L": {
+   "cat": "drive",
+   "mass_kg": 0.148
+  },
+  "hub_R": {
+   "cat": "drive",
+   "mass_kg": 1.118
+  },
+  "hub_L": {
+   "cat": "drive",
+   "mass_kg": 1.118
+  },
+  "spr_a_R": {
+   "cat": "drive",
+   "mass_kg": 1.627
+  },
+  "spr_a_L": {
+   "cat": "drive",
+   "mass_kg": 1.627
+  },
+  "spr_b_R": {
+   "cat": "drive",
+   "mass_kg": 1.627
+  },
+  "spr_b_L": {
+   "cat": "drive",
+   "mass_kg": 1.627
+  },
+  "chainwheel_R": {
+   "cat": "drive",
+   "mass_kg": 1.412
+  },
+  "chainwheel_L": {
+   "cat": "drive",
+   "mass_kg": 1.412
+  },
+  "cw_flange_R": {
+   "cat": "drive",
+   "mass_kg": 0.615
+  },
+  "cw_flange_L": {
+   "cat": "drive",
+   "mass_kg": 0.615
+  },
+  "endwsh_R": {
+   "cat": "drive",
+   "mass_kg": 0.059
+  },
+  "endwsh_L": {
+   "cat": "drive",
+   "mass_kg": 0.059
+  },
+  "endbolt_R": {
+   "cat": "drive",
+   "mass_kg": 0.022
+  },
+  "endbolt_L": {
+   "cat": "drive",
+   "mass_kg": 0.022
+  },
+  "chainwheel_boss_R": {
+   "cat": "drive",
+   "mass_kg": 0.381
+  },
+  "chainwheel_boss_L": {
+   "cat": "drive",
+   "mass_kg": 0.381
+  },
+  "cw_bolt0_R": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt0_L": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt1_R": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt1_L": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt2_R": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt2_L": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt3_R": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt3_L": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt4_R": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt4_L": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt5_R": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "cw_bolt5_L": {
+   "cat": "drive",
+   "mass_kg": 0.011
+  },
+  "motor_ph_R": {
+   "cat": "drive",
+   "mass_kg": 7.12
+  },
+  "motor_ph_L": {
+   "cat": "drive",
+   "mass_kg": 7.12
+  },
+  "motor_shaft_ph_R": {
+   "cat": "drive",
+   "mass_kg": 0.069
+  },
+  "motor_shaft_ph_L": {
+   "cat": "drive",
+   "mass_kg": 0.069
+  },
+  "pinion_R": {
+   "cat": "drive",
+   "mass_kg": 0.076
+  },
+  "pinion_L": {
+   "cat": "drive",
+   "mass_kg": 0.076
+  },
+  "rol0_pipe_i_R": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol0_pipe_i_L": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol0_back_i_R": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol0_back_i_L": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol0_seat_i_R": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol0_seat_i_L": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol0_brg_i_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol0_brg_i_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol0_clip_i_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol0_clip_i_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol0_spc_end_i_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol0_spc_end_i_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol0_pipe_o_R": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol0_pipe_o_L": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol0_back_o_R": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol0_back_o_L": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol0_seat_o_R": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol0_seat_o_L": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol0_brg_o_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol0_brg_o_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol0_clip_o_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol0_clip_o_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol0_spc_end_o_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol0_spc_end_o_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol0_spc_mid_R": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "rol0_spc_mid_L": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "rol0_shaft_R": {
+   "cat": "running",
+   "mass_kg": 1.013
+  },
+  "rol0_shaft_L": {
+   "cat": "running",
+   "mass_kg": 1.013
+  },
+  "rol0_wsh_i_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol0_wsh_i_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol0_nut_i_R": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol0_nut_i_L": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol0_wsh_o_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol0_wsh_o_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol0_nut_o_R": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol0_nut_o_L": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol1_pipe_i_R": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol1_pipe_i_L": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol1_back_i_R": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol1_back_i_L": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol1_seat_i_R": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol1_seat_i_L": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol1_brg_i_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol1_brg_i_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol1_clip_i_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol1_clip_i_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol1_spc_end_i_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol1_spc_end_i_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol1_pipe_o_R": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol1_pipe_o_L": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol1_back_o_R": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol1_back_o_L": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol1_seat_o_R": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol1_seat_o_L": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol1_brg_o_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol1_brg_o_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol1_clip_o_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol1_clip_o_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol1_spc_end_o_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol1_spc_end_o_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol1_spc_mid_R": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "rol1_spc_mid_L": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "rol1_shaft_R": {
+   "cat": "running",
+   "mass_kg": 1.013
+  },
+  "rol1_shaft_L": {
+   "cat": "running",
+   "mass_kg": 1.013
+  },
+  "rol1_wsh_i_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol1_wsh_i_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol1_nut_i_R": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol1_nut_i_L": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol1_wsh_o_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol1_wsh_o_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol1_nut_o_R": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol1_nut_o_L": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol2_pipe_i_R": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol2_pipe_i_L": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol2_back_i_R": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol2_back_i_L": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol2_seat_i_R": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol2_seat_i_L": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol2_brg_i_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol2_brg_i_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol2_clip_i_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol2_clip_i_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol2_spc_end_i_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol2_spc_end_i_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol2_pipe_o_R": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol2_pipe_o_L": {
+   "cat": "running",
+   "mass_kg": 0.487
+  },
+  "rol2_back_o_R": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol2_back_o_L": {
+   "cat": "running",
+   "mass_kg": 0.221
+  },
+  "rol2_seat_o_R": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol2_seat_o_L": {
+   "cat": "running",
+   "mass_kg": 0.165
+  },
+  "rol2_brg_o_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol2_brg_o_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "rol2_clip_o_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol2_clip_o_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "rol2_spc_end_o_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol2_spc_end_o_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "rol2_spc_mid_R": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "rol2_spc_mid_L": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "rol2_shaft_R": {
+   "cat": "running",
+   "mass_kg": 1.013
+  },
+  "rol2_shaft_L": {
+   "cat": "running",
+   "mass_kg": 1.013
+  },
+  "rol2_wsh_i_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol2_wsh_i_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol2_nut_i_R": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol2_nut_i_L": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol2_wsh_o_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol2_wsh_o_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "rol2_nut_o_R": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "rol2_nut_o_L": {
+   "cat": "running",
+   "mass_kg": 0.113
+  },
+  "idl_pipe_i_R": {
+   "cat": "running",
+   "mass_kg": 1.261
+  },
+  "idl_pipe_i_L": {
+   "cat": "running",
+   "mass_kg": 1.261
+  },
+  "idl_back_i_R": {
+   "cat": "running",
+   "mass_kg": 0.954
+  },
+  "idl_back_i_L": {
+   "cat": "running",
+   "mass_kg": 0.954
+  },
+  "idl_brg_i_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "idl_brg_i_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "idl_clip_i_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "idl_clip_i_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "idl_spc_end_i_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "idl_spc_end_i_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "idl_pipe_o_R": {
+   "cat": "running",
+   "mass_kg": 1.261
+  },
+  "idl_pipe_o_L": {
+   "cat": "running",
+   "mass_kg": 1.261
+  },
+  "idl_back_o_R": {
+   "cat": "running",
+   "mass_kg": 0.954
+  },
+  "idl_back_o_L": {
+   "cat": "running",
+   "mass_kg": 0.954
+  },
+  "idl_brg_o_R": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "idl_brg_o_L": {
+   "cat": "running",
+   "mass_kg": 0.13
+  },
+  "idl_clip_o_R": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "idl_clip_o_L": {
+   "cat": "running",
+   "mass_kg": 0.011
+  },
+  "idl_spc_end_o_R": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "idl_spc_end_o_L": {
+   "cat": "running",
+   "mass_kg": 0.065
+  },
+  "idl_spc_mid_R": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "idl_spc_mid_L": {
+   "cat": "running",
+   "mass_kg": 0.249
+  },
+  "idl_hubtube_R": {
+   "cat": "running",
+   "mass_kg": 1.79
+  },
+  "idl_hubtube_L": {
+   "cat": "running",
+   "mass_kg": 1.79
+  },
+  "idl_shaft_R": {
+   "cat": "running",
+   "mass_kg": 1.145
+  },
+  "idl_shaft_L": {
+   "cat": "running",
+   "mass_kg": 1.145
+  },
+  "idl_wsh_i_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "idl_wsh_i_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "idl_nut_i_R": {
+   "cat": "running",
+   "mass_kg": 0.063
+  },
+  "idl_nut_i_L": {
+   "cat": "running",
+   "mass_kg": 0.063
+  },
+  "idl_wsh_o_R": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "idl_wsh_o_L": {
+   "cat": "running",
+   "mass_kg": 0.035
+  },
+  "idl_nut_o_R": {
+   "cat": "running",
+   "mass_kg": 0.063
+  },
+  "idl_nut_o_L": {
+   "cat": "running",
+   "mass_kg": 0.063
+  },
+  "spc0_tube_R": {
+   "cat": "structure",
+   "mass_kg": 0.6
+  },
+  "spc0_tube_L": {
+   "cat": "structure",
+   "mass_kg": 0.6
+  },
+  "spc0_rod_R": {
+   "cat": "structure",
+   "mass_kg": 0.395
+  },
+  "spc0_rod_L": {
+   "cat": "structure",
+   "mass_kg": 0.395
+  },
+  "spc0_wsh_i_R": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc0_wsh_i_L": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc0_nut_i_R": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc0_nut_i_L": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc0_wsh_o_R": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc0_wsh_o_L": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc0_nut_o_R": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc0_nut_o_L": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc1_tube_R": {
+   "cat": "structure",
+   "mass_kg": 0.6
+  },
+  "spc1_tube_L": {
+   "cat": "structure",
+   "mass_kg": 0.6
+  },
+  "spc1_rod_R": {
+   "cat": "structure",
+   "mass_kg": 0.395
+  },
+  "spc1_rod_L": {
+   "cat": "structure",
+   "mass_kg": 0.395
+  },
+  "spc1_wsh_i_R": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc1_wsh_i_L": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc1_nut_i_R": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc1_nut_i_L": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc1_wsh_o_R": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc1_wsh_o_L": {
+   "cat": "structure",
+   "mass_kg": 0.012
+  },
+  "spc1_nut_o_R": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "spc1_nut_o_L": {
+   "cat": "structure",
+   "mass_kg": 0.034
+  },
+  "tens_block_i_R": {
+   "cat": "running",
+   "mass_kg": 0.162
+  },
+  "tens_block_i_L": {
+   "cat": "running",
+   "mass_kg": 0.162
+  },
+  "tens_lug_i_R": {
+   "cat": "structure",
+   "mass_kg": 0.069
+  },
+  "tens_lug_i_L": {
+   "cat": "structure",
+   "mass_kg": 0.069
+  },
+  "tens_rod_i_R": {
+   "cat": "running",
+   "mass_kg": 0.271
+  },
+  "tens_rod_i_L": {
+   "cat": "running",
+   "mass_kg": 0.271
+  },
+  "tens_wsh_i_R": {
+   "cat": "running",
+   "mass_kg": 0.012
+  },
+  "tens_wsh_i_L": {
+   "cat": "running",
+   "mass_kg": 0.012
+  },
+  "tens_nut_i_R": {
+   "cat": "running",
+   "mass_kg": 0.034
+  },
+  "tens_nut_i_L": {
+   "cat": "running",
+   "mass_kg": 0.034
+  },
+  "tens_block_o_R": {
+   "cat": "running",
+   "mass_kg": 0.162
+  },
+  "tens_block_o_L": {
+   "cat": "running",
+   "mass_kg": 0.162
+  },
+  "tens_lug_o_R": {
+   "cat": "structure",
+   "mass_kg": 0.069
+  },
+  "tens_lug_o_L": {
+   "cat": "structure",
+   "mass_kg": 0.069
+  },
+  "tens_rod_o_R": {
+   "cat": "running",
+   "mass_kg": 0.271
+  },
+  "tens_rod_o_L": {
+   "cat": "running",
+   "mass_kg": 0.271
+  },
+  "tens_wsh_o_R": {
+   "cat": "running",
+   "mass_kg": 0.012
+  },
+  "tens_wsh_o_L": {
+   "cat": "running",
+   "mass_kg": 0.012
+  },
+  "tens_nut_o_R": {
+   "cat": "running",
+   "mass_kg": 0.034
+  },
+  "tens_nut_o_L": {
+   "cat": "running",
+   "mass_kg": 0.034
+  },
+  "ucflbolt_i0_R": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflbolt_i0_L": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflwsh_i0_R": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflwsh_i0_L": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflnut_i0_R": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflnut_i0_L": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflbolt_i1_R": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflbolt_i1_L": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflwsh_i1_R": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflwsh_i1_L": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflnut_i1_R": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflnut_i1_L": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflbolt_o0_R": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflbolt_o0_L": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflwsh_o0_R": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflwsh_o0_L": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflnut_o0_R": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflnut_o0_L": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflbolt_o1_R": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflbolt_o1_L": {
+   "cat": "drive",
+   "mass_kg": 0.063
+  },
+  "ucflwsh_o1_R": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflwsh_o1_L": {
+   "cat": "drive",
+   "mass_kg": 0.009
+  },
+  "ucflnut_o1_R": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "ucflnut_o1_L": {
+   "cat": "drive",
+   "mass_kg": 0.023
+  },
+  "beam_rear_pad_R": {
+   "cat": "structure",
+   "mass_kg": 0.287
+  },
+  "beam_rear_pad_L": {
+   "cat": "structure",
+   "mass_kg": 0.287
+  },
+  "beam_rear_wsh0_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_wsh0_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_bolt0_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_bolt0_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_wsh1_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_wsh1_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_bolt1_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_bolt1_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_wsh2_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_wsh2_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_bolt2_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_bolt2_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_wsh3_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_wsh3_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_rear_bolt3_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_rear_bolt3_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid1_pad_R": {
+   "cat": "structure",
+   "mass_kg": 0.297
+  },
+  "beam_mid1_pad_L": {
+   "cat": "structure",
+   "mass_kg": 0.297
+  },
+  "beam_mid1_wsh0_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid1_wsh0_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid1_bolt0_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid1_bolt0_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid1_wsh1_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid1_wsh1_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid1_bolt1_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid1_bolt1_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid2_pad_R": {
+   "cat": "structure",
+   "mass_kg": 0.297
+  },
+  "beam_mid2_pad_L": {
+   "cat": "structure",
+   "mass_kg": 0.297
+  },
+  "beam_mid2_wsh0_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid2_wsh0_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid2_bolt0_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid2_bolt0_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid2_wsh1_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid2_wsh1_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_mid2_bolt1_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_mid2_bolt1_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_front_pad_R": {
+   "cat": "structure",
+   "mass_kg": 0.297
+  },
+  "beam_front_pad_L": {
+   "cat": "structure",
+   "mass_kg": 0.297
+  },
+  "beam_front_wsh0_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_front_wsh0_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_front_bolt0_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_front_bolt0_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_front_wsh1_R": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_front_wsh1_L": {
+   "cat": "structure",
+   "mass_kg": 0.007
+  },
+  "beam_front_bolt1_R": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "beam_front_bolt1_L": {
+   "cat": "structure",
+   "mass_kg": 0.032
+  },
+  "track_R": {
+   "cat": "track",
+   "mass_kg": 17.1
+  },
+  "track_L": {
+   "cat": "track",
+   "mass_kg": 17.1
+  },
+  "beam_rear": {
+   "cat": "structure",
+   "mass_kg": 2.315
+  },
+  "beam_mid1": {
+   "cat": "structure",
+   "mass_kg": 2.315
+  },
+  "beam_mid2": {
+   "cat": "structure",
+   "mass_kg": 2.315
+  },
+  "beam_front": {
+   "cat": "structure",
+   "mass_kg": 2.315
+  },
+  "beam_rear_flgR": {
+   "cat": "structure",
+   "mass_kg": 0.206
+  },
+  "beam_rear_flgL": {
+   "cat": "structure",
+   "mass_kg": 0.206
+  },
+  "beam_mid1_flgR": {
+   "cat": "structure",
+   "mass_kg": 0.218
+  },
+  "beam_mid1_flgL": {
+   "cat": "structure",
+   "mass_kg": 0.218
+  },
+  "beam_mid2_flgR": {
+   "cat": "structure",
+   "mass_kg": 0.218
+  },
+  "beam_mid2_flgL": {
+   "cat": "structure",
+   "mass_kg": 0.218
+  },
+  "beam_front_flgR": {
+   "cat": "structure",
+   "mass_kg": 0.218
+  },
+  "beam_front_flgL": {
+   "cat": "structure",
+   "mass_kg": 0.218
+  }
+ }
+}

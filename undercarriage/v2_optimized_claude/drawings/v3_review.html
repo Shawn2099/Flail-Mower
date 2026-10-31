@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UC-V2 simple spool - roller &amp; idler</title>
+<style>
+  body { font-family: "Segoe UI", Arial, sans-serif; margin: 0; background: #e9edf1; color: #111; }
+  header { background: #fff; border-bottom: 2px solid #333; padding: 12px 22px; }
+  h1 { font-size: 21px; margin: 0 0 4px; }
+  p { margin: 3px 0; font-size: 14px; }
+  .wrap { padding: 16px 22px 40px; }
+  .card { background: #fff; margin: 16px 0 26px; padding: 10px; border: 1px solid #aab;
+          box-shadow: 0 2px 6px #0002; }
+  .cap { font-size: 15px; font-weight: 600; margin: 2px 0 8px; }
+  img { width: 100%; height: auto; display: block; border: 1px solid #888; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; background: #fff; }
+  th, td { border: 1px solid #999; padding: 6px 8px; text-align: left; }
+  th { background: #1f4e79; color: #fff; }
+  code { background: #eef; padding: 1px 4px; }
+  a { color: #0645ad; }
+  .note { background: #fff3cd; border: 1px solid #d39e00; padding: 10px 14px; margin: 10px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Simple spool proposal - roller &amp; idler</h1>
+  <p>Pipe + backplate with welded bearing seat + loose spacer. <b>No Loctite. No ring stacks.</b>
+     Two identical drums per station. Units: mm.</p>
+</header>
+<div class="wrap">
+
+  <div class="note">
+    <b>Please inspect:</b> bearing is at the tread centre in a welded 65/52 seat; the spacer is
+    loose between the two bearing inner races; the outer pipe end is open (cap optional); the
+    shaft is a press fit in both bearings. This is a proposal, not frozen.
+  </div>
+
+  <div class="card"><div class="cap">Roller Ø114.3 × 40 - section through one station</div>
+    <img src="v3_roller_section.png" alt="roller section"></div>
+
+  <div class="card"><div class="cap">Idler Ø200 × 40 - section through one station</div>
+    <img src="v3_idler_section.png" alt="idler section"></div>
+
+  <div class="card"><div class="cap">Key data</div>
+  <table>
+    <tr><th>Item</th><th>Roller</th><th>Idler</th></tr>
+    <tr><td>Pipe</td><td>Ø114.3 × 4.5 wall × 40</td><td>Ø200 × 5 wall × 40</td></tr>
+    <tr><td>Backplate</td><td>6 mm, OD105.3 / ID65, welded inside pipe</td>
+        <td>6 mm, OD190 / ID65, welded inside pipe</td></tr>
+    <tr><td>Bearing seat</td><td>65/52 × 22, welded to backplate, bore 52 H7</td>
+        <td>same</td></tr>
+    <tr><td>Bearing</td><td>2 × 6205-2RS (one per drum), press fit</td><td>same</td></tr>
+    <tr><td>Spacer</td><td>42.4/35.5 × 109 loose, between bearing inner races</td><td>same</td></tr>
+    <tr><td>Shaft</td><td>Ø25 × 260, press fit in both bearings, no Loctite</td><td>same</td></tr>
+    <tr><td>Drum centres</td><td>124 (±62)</td><td>124 (±62)</td></tr>
+    <tr><td>Mass / station</td><td><b>3.54 kg</b></td><td><b>6.33 kg</b></td></tr>
+    <tr><td>Horn clearance</td><td>7.5 mm (spacer to horn tip)</td>
+        <td>49.6 mm to spacer / 24.2 mm to pipe bore</td></tr>
+    <tr><td>Parts / station</td><td>2 pipes + 2 backplates + 2 seats + 2 bearings + spacer + shaft</td>
+        <td>same</td></tr>
+  </table>
+  </div>
+
+  <div class="card"><div class="cap">CAD files</div>
+    <p><a href="../cad/v3_roller.step">v3_roller.step</a> -
+       <a href="../cad/v3_idler.step">v3_idler.step</a></p>
+    <p>STL parts are in <code>../cad/v3_roller_*.stl</code> and <code>../cad/v3_idler_*.stl</code>.</p>
+  </div>
+
+</div>
+</body>
+</html>

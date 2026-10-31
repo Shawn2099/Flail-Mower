@@ -1,0 +1,15 @@
+{
+  "tag": "roller_disc_D114_v2",
+  "drum_OD": 114.3,
+  "tread_w": 40.0,
+  "hollow_v2": true,
+  "bearings": "1x 6205-2RS (25x52x15) sealed",
+  "shaft": "dia25 g6 EN8 through-shaft across plates",
+  "fits": {
+    "drum_bore": "dia52 H7 (ream)",
+    "circlip": "52x1.5 DIN472",
+    "band_clear": "w40 disc on side bands (170-227/293-350), clears horns A66 + plates ~10"
+  },
+  "process": "100NB-M shell + 2 laser cheeks + hollow-bar/hub rings + Loctite 638, weld, NO skim, NO ream (clamp shafts), 1x6205 press + circlip",
+  "mass_kg": 1.88
+}

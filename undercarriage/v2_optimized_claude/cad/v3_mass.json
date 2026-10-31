@@ -1,0 +1,18 @@
+{
+  "roller": {
+    "right drum": 0.948,
+    "left drum": 0.948,
+    "bearing R": 0.139,
+    "bearing L": 0.139,
+    "spacer": 0.361,
+    "shaft": 1.002
+  },
+  "idler": {
+    "right drum": 2.347,
+    "left drum": 2.347,
+    "bearing R": 0.139,
+    "bearing L": 0.139,
+    "spacer": 0.361,
+    "shaft": 1.002
+  }
+}

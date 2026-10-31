@@ -1,0 +1,11 @@
+{
+ "case": "inner plate lateral 1.0 kN per roller hole + idler, 4 tapped-pad faces fixed (beam joints)",
+ "max_vm_MPa": 78.66525792012888,
+ "p99_MPa": 30.04847256835983,
+ "p95_MPa": 12.135281239025979,
+ "max_disp_mm": 0.2264014724533799,
+ "nodes": 91467,
+ "allowable_MPa": 167.0,
+ "yield_MPa": 250.0,
+ "note": "peak at constrained/loaded hole edges is partly a constraint singularity; judge by p95/p99 and the hole-edge max vs yield"
+}

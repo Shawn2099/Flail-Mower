@@ -1,0 +1,11 @@
+{
+ "case": "inner plate ground reaction 3x1.7 kN + idler 2.0 kN, 4 tapped-pad faces fixed (beam joints)",
+ "max_vm_MPa": 13.179147249499456,
+ "p99_MPa": 4.215579441256359,
+ "p95_MPa": 1.9740044409130935,
+ "max_disp_mm": 0.003937417682484423,
+ "nodes": 91467,
+ "allowable_MPa": 167.0,
+ "yield_MPa": 250.0,
+ "note": "peak at constrained/loaded hole edges is partly a constraint singularity; judge by p95/p99 and the hole-edge max vs yield"
+}

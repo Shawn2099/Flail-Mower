@@ -1,0 +1,15 @@
+{
+  "tag": "idler_disc_D200_v2",
+  "drum_OD": 200.0,
+  "tread_w": 40.0,
+  "hollow_v2": true,
+  "bearings": "1x 6205-2RS (25x52x15) sealed",
+  "shaft": "dia25 g6 EN8 through-shaft across plates",
+  "fits": {
+    "drum_bore": "dia52 H7 (ream)",
+    "circlip": "52x1.5 DIN472",
+    "band_clear": "w40 disc on side bands (170-227/293-350), clears horns A66 + plates ~10"
+  },
+  "process": "5x 8mm laser rings D200/ID150 + ring-stack hub + Loctite 638, weld stack, NO skim (flap-disc max 1mm), NO ream, 1x6205 press + circlip",
+  "mass_kg": 6.15
+}
