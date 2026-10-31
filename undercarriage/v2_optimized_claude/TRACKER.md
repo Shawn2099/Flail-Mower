@@ -2,7 +2,7 @@
 
 Single source of truth for **what was decided, what is done, what is open, and how to continue**. Update it at the end of every work session
 (add a line to the Change log, move items between the tables, never delete history). Companion files: `STATUS.md` (current numbers), `WELD_SCHEDULE.md`, `TRACK_CHANGE_SOP.md`.
-Last updated: 2026-10-31. Nothing in this folder has been git-committed (`?? undercarriage/v2_optimized_claude/` is untracked). Do NOT edit frozen v2 (`undercarriage/v2/`) or `prototype_1/`; all work stays inside this folder.
+Last updated: 2026-10-31. Committed locally as `2b32973` on `master` (NOT pushed; binary artifacts FCStd/STEP/DXF and logs are not in git - regenerate with the build script). Do NOT edit frozen v2 (`undercarriage/v2/`) or `prototype_1/`; all work stays inside this folder.
 
 ## 1. Goal and standing instructions from the user
 - One prototype rubber-track undercarriage for a Kerala **coffee-plantation flail mower**. Flat to minor gradients; rows max 8 ft (2.44 m); overall width <= 1190 mm. Prove the idea, keep it **simple, buildable by an average welder, not over-engineered**, parts available in India/Kerala.
@@ -70,4 +70,5 @@ Track link count / bend radius / roller load / gap floor; 12-tooth track sprocke
 Root: `sim_uc_v4.m`, `motor_bm1418zxf.m`, `opt_sprockets.m` (current); `STATUS.md`, `WELD_SCHEDULE.md`, `TRACK_CHANGE_SOP.md`, this tracker; legacy v2 copies (`sim_v2*.m`, `BRIEF.md`, `cad/`, `drawings/`, ...) are history only.
 
 ## 9. Change log
+- 10-31 Committed as 2b32973 (local only).
 - 10-31 Folder created from v2; independent CAD verification; Opus reviews; parametric build; FEM; single-stage drive; optimiser selected 12T/13T/52T; weight/turning honestly reassessed; this tracker added.
